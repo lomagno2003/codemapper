@@ -52,20 +52,36 @@ public class MapperFactory {
         Integer suffixIndex = findHeaderIndex(generalConfiguration,SUFFIX_COLUMN_NAME);
         Integer externalColumnNameIndex = findHeaderIndex(generalConfiguration,EXTERNAL_CODE_COLUMN_NAME);
 		
+        if(distributorsIndex==null||suffixIndex==null||externalColumnNameIndex==null){
+        	throw new IllegalStateException("Bad headers");
+        }
+        
         Iterator<Row> rowIterator = generalConfiguration.iterator();
         rowIterator.next();
         
+        int i=0;
         while (rowIterator.hasNext()) 
         {
             Row row = rowIterator.next();
-
+            
             Cell distributorCell = row.getCell(distributorsIndex);
+            if(distributorCell==null){
+            	//If the sheet have some row without any cells, the search
+            	//for new distributors is finished
+            	break;
+            }
             result.getConfigurations().put(distributorCell.getStringCellValue(), new Configuration());
             
             Cell suffixCell = row.getCell(suffixIndex);
+            if(suffixCell==null){
+            	throw new IllegalStateException("Bad headers");
+            }
             result.getConfigurations().get(distributorCell.getStringCellValue()).setSuffix(suffixCell.getStringCellValue());
             
             Cell externalColumnNameCell = row.getCell(externalColumnNameIndex);
+            if(externalColumnNameCell==null){
+            	throw new IllegalStateException("Bad headers");
+            }
             result.getConfigurations().get(distributorCell.getStringCellValue()).setExternalColumnName(externalColumnNameCell.getStringCellValue());
             
             configureDistributorMappings(
@@ -90,11 +106,8 @@ public class MapperFactory {
 
             Cell internalCodeCell = row.getCell(internalCodeIndex);
             Cell externalCodeCell = row.getCell(externalCodeIndex);
-            
-            System.out.println(internalCodeCell.getStringCellValue());
-            System.out.println(externalCodeCell.getStringCellValue());
 
-            configuration.getMappings().put(externalCodeCell.getStringCellValue(), internalCodeCell.getStringCellValue());
+            configuration.getMappings().put(externalCodeCell.toString(), internalCodeCell.toString());
         }
 	}
 }

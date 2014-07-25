@@ -2,6 +2,10 @@ package com.clomagno.codemapper.test.mapper;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -24,12 +28,34 @@ public class TestCase_MapperFactory {
 	}
 	
 	@Test
+	public void testGetMapperFromFile() throws IOException{
+		HSSFWorkbook workbookConfiguration = new HSSFWorkbook(TestCase_MapperFactory.class.getResourceAsStream("mapping1.xls"));
+		System.out.println(workbookConfiguration.getSheetName(0));
+		System.out.println(workbookConfiguration.getSheetName(1));
+		Mapper mapper = MapperFactory.getMapperFromWorkbook(workbookConfiguration);
+        
+                
+        HSSFWorkbook externalWorkbook = new HSSFWorkbook(TestCase_MapperFactory.class.getResourceAsStream("distributor1.xls"));
+        
+        HSSFSheet mappedSheet = mapper.doMap("distributor1", externalWorkbook).getSheet(Mapper.MAPPED_SHEET_NAME);
+        
+		String distributor1Expected[][]={
+        		{Mapper.INTERNAL_CODE_COLUMN_NAME,"ec1","price","Product"},
+        		{"c1_d1","c10","100.0","Pera"},
+        		{"c2_d1","c11","100.0","Manzana"},
+        		{"c3_d1","c12","100.0","Banana"}
+        		};
+        
+        TestCase_Mapper.testSheet(mappedSheet, distributor1Expected);
+	}
+	
+	@Test
 	public void testFindHeaderIndex(){
 		String distributor1[][]={
         		{"ColumnA","ColumnB","ColumnC"},
-        		{"10","100.0","Pera"},
-        		{"11","100.0","Manzana"},
-        		{"12","100.0","Banana"}
+        		{"c10","100.0","Pera"},
+        		{"c11","100.0","Manzana"},
+        		{"c12","100.0","Banana"}
         		};
 		
 		HSSFWorkbook workbook = new HSSFWorkbook();
