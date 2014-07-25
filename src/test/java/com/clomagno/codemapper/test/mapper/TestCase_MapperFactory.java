@@ -30,8 +30,6 @@ public class TestCase_MapperFactory {
 	@Test
 	public void testGetMapperFromFile() throws IOException{
 		HSSFWorkbook workbookConfiguration = new HSSFWorkbook(TestCase_MapperFactory.class.getResourceAsStream("mapping1.xls"));
-		System.out.println(workbookConfiguration.getSheetName(0));
-		System.out.println(workbookConfiguration.getSheetName(1));
 		Mapper mapper = MapperFactory.getMapperFromWorkbook(workbookConfiguration);
         
                 

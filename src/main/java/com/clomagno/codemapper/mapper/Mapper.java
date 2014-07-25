@@ -28,7 +28,6 @@ public class Mapper {
 	}
 	
 	public HSSFWorkbook doMap(String distributorName, HSSFWorkbook externalWorkbook){
-		System.out.println(externalWorkbook.getSheetName(0));
 		return doMap(distributorName, externalWorkbook.getSheet(distributorName));
 	}
 

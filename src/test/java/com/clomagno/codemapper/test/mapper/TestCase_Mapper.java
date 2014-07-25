@@ -101,7 +101,6 @@ public class TestCase_Mapper {
                     default:
                     	throw new IllegalStateException("Type not recognized");
                 }
-        		System.out.println("For ["+i+"]["+j+"]"+cellValue);
         		assertEquals("For ["+i+"]["+j+"]",expected[i][j], cellValue);
         	}
         }
