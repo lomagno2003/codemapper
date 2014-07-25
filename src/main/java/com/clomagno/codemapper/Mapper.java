@@ -10,30 +10,25 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
 public class Mapper {
-	private String internalCodeColumn;
-	
-	private String mappedSheetName = "Mapped";
-	
+	public static String INTERNAL_CODE_COLUMN_NAME = "ICCN";
+	public static String MAPPED_SHEET_NAME = "MSN";
+
 	private Map<String,Configuration> configurations;
 	
 	public Mapper(){
 		configurations = new HashMap<String, Configuration>();
 	}
 	
-	public String getInternalCodeColumn() {
-		return internalCodeColumn;
-	}
-
-	public void setInternalCodeColumn(String internalCodeColumn) {
-		this.internalCodeColumn = internalCodeColumn;
-	}
-
 	public Map<String, Configuration> getConfigurations() {
 		return configurations;
 	}
 
 	public void setConfigurations(Map<String, Configuration> configurations) {
 		this.configurations = configurations;
+	}
+	
+	public HSSFWorkbook doMap(String distributorName, HSSFWorkbook externalWorkbook){
+		return doMap(distributorName, externalWorkbook.getSheet(distributorName));
 	}
 
 	public HSSFWorkbook doMap(String distributorName, HSSFSheet externalSheet){
@@ -42,7 +37,7 @@ public class Mapper {
 		}
 		
         HSSFWorkbook result = new HSSFWorkbook(); 
-        HSSFSheet resultSheet = result.createSheet(mappedSheetName);
+        HSSFSheet resultSheet = result.createSheet(MAPPED_SHEET_NAME);
 		
 		Configuration distributorConfiguration = configurations.get(distributorName);
 		
@@ -105,7 +100,7 @@ public class Mapper {
             Row row = rowIterator.next();
             Row newRow = resultSheet.createRow(rowNumber);
             
-            newRow.createCell(0).setCellValue(internalCodeColumn);
+            newRow.createCell(0).setCellValue(INTERNAL_CODE_COLUMN_NAME);
 
             //For each row, iterate through all the columns
             Iterator<Cell> cellIterator = row.cellIterator();

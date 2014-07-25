@@ -34,11 +34,10 @@ public class TestCase_Mapper {
 		configuration.setExternalColumnName("ExternalCode");
 		configuration.setSuffix("-sufix");
 		
-		mapper.setInternalCodeColumn("InternalCode");
 		mapper.getConfigurations().put("FruitTest", configuration);
 		
 		HSSFWorkbook workbook = new HSSFWorkbook();
-	    HSSFSheet sheet = workbook.createSheet("Mapped");
+	    HSSFSheet sheet = workbook.createSheet(Mapper.MAPPED_SHEET_NAME);
 	  
 	    Row header = sheet.createRow(0);
 	    header.createCell(0).setCellValue("ExternalCode");
@@ -66,18 +65,23 @@ public class TestCase_Mapper {
 	     */
 	    
 	    HSSFWorkbook mapped = mapper.doMap("FruitTest", sheet);
-        HSSFSheet mappedSheet = mapped.getSheet("Mapped");
+        HSSFSheet mappedSheet = mapped.getSheet(Mapper.MAPPED_SHEET_NAME);
         
         String expected[][]={
-        		{"InternalCode","ExternalCode","Price","Product"},
+        		{Mapper.INTERNAL_CODE_COLUMN_NAME,"ExternalCode","Price","Product"},
         		{"1-sufix","10","100.0","Pera"},
         		{"2-sufix","11","100.0","Manzana"},
         		{"3-sufix","12","100.0","Banana"}
         		};
         
+        testSheet(mappedSheet, expected);
+	}
+	
+	public static void testSheet(HSSFSheet mappedSheet, String [][] expected){
         for(int i=0;i<3;i++){
         	Row row = mappedSheet.getRow(i);
         	for(int j=0;j<3;j++){
+        		
         		Cell cell = row.getCell(j);
         		
         		assertNotNull("For ["+i+"]["+j+"]", cell);
@@ -94,6 +98,7 @@ public class TestCase_Mapper {
                     default:
                     	throw new IllegalStateException("Type not recognized");
                 }
+        		System.out.println("For ["+i+"]["+j+"]"+cellValue);
         		assertEquals("For ["+i+"]["+j+"]",expected[i][j], cellValue);
         	}
         }

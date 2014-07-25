@@ -1,5 +1,6 @@
 package com.clomagno.codemapper;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Configuration {
@@ -8,6 +9,10 @@ public class Configuration {
 	private String externalColumnName;
 	
 	private Map<String,String> mappings;
+	
+	public Configuration(){
+		mappings = new HashMap<String, String>();
+	}
 
 	public String getSuffix() {
 		return suffix;
