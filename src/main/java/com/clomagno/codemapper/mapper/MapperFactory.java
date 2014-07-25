@@ -23,18 +23,9 @@ public class MapperFactory {
 		while (cellIterator.hasNext()) 
         {
             Cell cell = cellIterator.next();
-            switch (cell.getCellType()) 
-            {
-                case Cell.CELL_TYPE_NUMERIC:
-                	if(Double.valueOf(cell.getNumericCellValue()).toString().equals(header)){
-                    	return result;
-                    }
-                    break;
-                case Cell.CELL_TYPE_STRING:
-                    if(cell.getStringCellValue().equals(header)){
-                    	return result;
-                    }
-                    break;
+
+            if(cell.toString().equals(header)){
+            	return result;
             }
             
             result++;

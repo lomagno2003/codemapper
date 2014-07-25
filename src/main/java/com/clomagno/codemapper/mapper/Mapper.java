@@ -69,17 +69,7 @@ public class Mapper {
             {
                 Cell cell = cellIterator.next();
                 
-                switch (cell.getCellType()) 
-                {
-                    case Cell.CELL_TYPE_NUMERIC:
-                    	newRow.createCell(columnIndex).setCellValue(cell.getNumericCellValue());
-                        break;
-                    case Cell.CELL_TYPE_STRING:
-                    	newRow.createCell(columnIndex).setCellValue(cell.getStringCellValue());
-                        break;
-                    default:
-                    	throw new IllegalStateException("Type not recognized");
-                }
+                newRow.createCell(columnIndex).setCellValue(cell.toString());
                 
                 columnIndex++;
                 
@@ -109,17 +99,7 @@ public class Mapper {
             {
                 Cell cell = cellIterator.next();
                 
-                switch (cell.getCellType()) 
-                {
-                    case Cell.CELL_TYPE_NUMERIC:
-                    	newRow.createCell(columnIndex).setCellValue(cell.getNumericCellValue());
-                        break;
-                    case Cell.CELL_TYPE_STRING:
-                    	newRow.createCell(columnIndex).setCellValue(cell.getStringCellValue());
-                        break;
-                    default:
-                    	throw new IllegalStateException("Type not recognized");
-                }
+                newRow.createCell(columnIndex).setCellValue(cell.toString());
                 
                 columnIndex++;
                 
