@@ -1,4 +1,4 @@
-package com.clomagno.codemapper;
+package com.clomagno.codemapper.test.mapper;
 
 import static org.junit.Assert.*;
 

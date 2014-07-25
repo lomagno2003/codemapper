@@ -1,4 +1,4 @@
-package com.clomagno.codemapper;
+package com.clomagno.codemapper.test.mapper;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
