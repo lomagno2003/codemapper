@@ -13,6 +13,10 @@ import org.apache.poi.ss.usermodel.Row;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.clomagno.codemapper.mapper.Configuration;
+import com.clomagno.codemapper.mapper.Mapper;
+import com.clomagno.codemapper.mapper.MapperFactory;
+
 public class TestCase_MapperFactory {
 	@Before
 	public void setUp() throws Exception {

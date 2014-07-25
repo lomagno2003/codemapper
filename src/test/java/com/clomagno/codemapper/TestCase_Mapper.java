@@ -13,6 +13,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.clomagno.codemapper.mapper.Configuration;
+import com.clomagno.codemapper.mapper.Mapper;
+
 public class TestCase_Mapper {
 	private Mapper mapper;
 	

@@ -1,4 +1,4 @@
-package com.clomagno.codemapper;
+package com.clomagno.codemapper.mapper;
 
 import java.util.HashMap;
 import java.util.Map;
