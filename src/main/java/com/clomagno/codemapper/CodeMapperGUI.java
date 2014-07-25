@@ -3,7 +3,11 @@ package com.clomagno.codemapper;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -12,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
 public class CodeMapperGUI {
 
 	private JFrame frame;
@@ -19,6 +25,12 @@ public class CodeMapperGUI {
 	private final JFileChooser configurationFileChooser = new JFileChooser();
 	
 	private final JFileChooser productsFileChooser = new JFileChooser();
+	
+	private JComboBox<String> comboBoxDistributors;
+	
+	private JLabel lblProductsFile;
+	
+	private JLabel lblConfigurationFile;
 
 	/**
 	 * Launch the application.
@@ -58,7 +70,7 @@ public class CodeMapperGUI {
 		springLayout.putConstraint(SpringLayout.WEST, lblArchivoDeConfiguracion, 10, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(lblArchivoDeConfiguracion);
 		
-		JLabel lblConfigurationFile = new JLabel("FileName");
+		lblConfigurationFile = new JLabel("FileName");
 		springLayout.putConstraint(SpringLayout.WEST, lblConfigurationFile, 6, SpringLayout.EAST, lblArchivoDeConfiguracion);
 		springLayout.putConstraint(SpringLayout.SOUTH, lblConfigurationFile, 0, SpringLayout.SOUTH, lblArchivoDeConfiguracion);
 		frame.getContentPane().add(lblConfigurationFile);
@@ -67,6 +79,7 @@ public class CodeMapperGUI {
 		btnSelectConfigurationFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CodeMapperGUI.this.configurationFileChooser.showOpenDialog(CodeMapperGUI.this.frame);
+				CodeMapperGUI.this.updateFiles();
 			}
 		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnSelectConfigurationFile, -5, SpringLayout.NORTH, lblArchivoDeConfiguracion);
@@ -77,6 +90,7 @@ public class CodeMapperGUI {
 		btnSelectProductsFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CodeMapperGUI.this.productsFileChooser.showOpenDialog(CodeMapperGUI.this.frame);
+				CodeMapperGUI.this.updateFiles();
 			}
 		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnSelectProductsFile, 16, SpringLayout.SOUTH, btnSelectConfigurationFile);
@@ -98,7 +112,7 @@ public class CodeMapperGUI {
 		springLayout.putConstraint(SpringLayout.SOUTH, lblArchivoDeProductos, 0, SpringLayout.SOUTH, btnSelectProductsFile);
 		frame.getContentPane().add(lblArchivoDeProductos);
 		
-		JLabel lblProductsFile = new JLabel("FileName");
+		lblProductsFile = new JLabel("FileName");
 		springLayout.putConstraint(SpringLayout.WEST, lblProductsFile, 6, SpringLayout.EAST, lblArchivoDeProductos);
 		springLayout.putConstraint(SpringLayout.SOUTH, lblProductsFile, 0, SpringLayout.SOUTH, btnSelectProductsFile);
 		frame.getContentPane().add(lblProductsFile);
@@ -108,9 +122,43 @@ public class CodeMapperGUI {
 		springLayout.putConstraint(SpringLayout.WEST, lblPlanillaDeDistribuidora, 10, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(lblPlanillaDeDistribuidora);
 		
-		JComboBox comboBoxDistributors = new JComboBox();
+		comboBoxDistributors = new JComboBox<String>();
 		springLayout.putConstraint(SpringLayout.SOUTH, comboBoxDistributors, 0, SpringLayout.SOUTH, lblPlanillaDeDistribuidora);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxDistributors, 0, SpringLayout.EAST, btnSelectConfigurationFile);
 		frame.getContentPane().add(comboBoxDistributors);
+	}
+	
+	private void updateFiles(){
+		File configurationFile = this.configurationFileChooser.getSelectedFile();
+		File productsFile = this.productsFileChooser.getSelectedFile();
+		
+		if(configurationFile!=null){
+			this.lblConfigurationFile.setText(configurationFile.getName());
+		}
+
+		if(productsFile!=null){
+			this.lblProductsFile.setText(configurationFile.getName());
+		}
+		
+		comboBoxDistributors.removeAllItems();
+		
+		if(configurationFile!=null&&productsFile!=null){
+			try {
+				HSSFWorkbook configurationWorkbook = new HSSFWorkbook(new FileInputStream(configurationFile));
+				HSSFWorkbook productsWorkbook = new HSSFWorkbook(new FileInputStream(productsFile));
+				
+				for(int i=0;i<configurationWorkbook.getNumberOfSheets();i++){
+					for(int j=0;j<productsWorkbook.getNumberOfSheets();j++){
+						if(configurationWorkbook.getSheetName(i).equals(productsWorkbook.getSheetName(j))){
+							comboBoxDistributors.addItem(productsWorkbook.getSheetName(j).toString());
+						}
+					}
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
