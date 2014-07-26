@@ -26,7 +26,7 @@ import com.clomagno.codemapper.test.mapper.TestCase_MapperFactory;
 
 public class CodeMapperGUI {
 
-	private JFrame frame;
+	private JFrame frmMapeadorDeCodigos;
 	
 	private final JFileChooser configurationFileChooser = new JFileChooser();
 	
@@ -50,7 +50,7 @@ public class CodeMapperGUI {
 			public void run() {
 				try {
 					CodeMapperGUI window = new CodeMapperGUI();
-					window.frame.setVisible(true);
+					window.frmMapeadorDeCodigos.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -69,46 +69,47 @@ public class CodeMapperGUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 449, 307);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMapeadorDeCodigos = new JFrame();
+		frmMapeadorDeCodigos.setTitle("Mapeador de codigos");
+		frmMapeadorDeCodigos.setBounds(100, 100, 449, 307);
+		frmMapeadorDeCodigos.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
-		frame.getContentPane().setLayout(springLayout);
+		frmMapeadorDeCodigos.getContentPane().setLayout(springLayout);
 		
 		JLabel lblArchivoDeConfiguracion = new JLabel("Archivo de configuracion:");
-		springLayout.putConstraint(SpringLayout.NORTH, lblArchivoDeConfiguracion, 38, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, lblArchivoDeConfiguracion, 10, SpringLayout.WEST, frame.getContentPane());
-		frame.getContentPane().add(lblArchivoDeConfiguracion);
+		springLayout.putConstraint(SpringLayout.NORTH, lblArchivoDeConfiguracion, 38, SpringLayout.NORTH, frmMapeadorDeCodigos.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, lblArchivoDeConfiguracion, 10, SpringLayout.WEST, frmMapeadorDeCodigos.getContentPane());
+		frmMapeadorDeCodigos.getContentPane().add(lblArchivoDeConfiguracion);
 		
 		lblConfigurationFile = new JLabel("FileName");
 		springLayout.putConstraint(SpringLayout.WEST, lblConfigurationFile, 6, SpringLayout.EAST, lblArchivoDeConfiguracion);
 		springLayout.putConstraint(SpringLayout.SOUTH, lblConfigurationFile, 0, SpringLayout.SOUTH, lblArchivoDeConfiguracion);
-		frame.getContentPane().add(lblConfigurationFile);
+		frmMapeadorDeCodigos.getContentPane().add(lblConfigurationFile);
 		
 		JButton btnSelectConfigurationFile = new JButton("Seleccionar");
 		btnSelectConfigurationFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CodeMapperGUI.this.configurationFileChooser.showOpenDialog(CodeMapperGUI.this.frame);
+				CodeMapperGUI.this.configurationFileChooser.showOpenDialog(CodeMapperGUI.this.frmMapeadorDeCodigos);
 				CodeMapperGUI.this.updateFiles();
 			}
 		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnSelectConfigurationFile, -5, SpringLayout.NORTH, lblArchivoDeConfiguracion);
-		springLayout.putConstraint(SpringLayout.EAST, btnSelectConfigurationFile, -10, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(btnSelectConfigurationFile);
+		springLayout.putConstraint(SpringLayout.EAST, btnSelectConfigurationFile, -10, SpringLayout.EAST, frmMapeadorDeCodigos.getContentPane());
+		frmMapeadorDeCodigos.getContentPane().add(btnSelectConfigurationFile);
 		
 		JButton btnSelectProductsFile = new JButton("Seleccionar");
 		btnSelectProductsFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CodeMapperGUI.this.productsFileChooser.showOpenDialog(CodeMapperGUI.this.frame);
+				CodeMapperGUI.this.productsFileChooser.showOpenDialog(CodeMapperGUI.this.frmMapeadorDeCodigos);
 				CodeMapperGUI.this.updateFiles();
 			}
 		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnSelectProductsFile, 16, SpringLayout.SOUTH, btnSelectConfigurationFile);
 		springLayout.putConstraint(SpringLayout.WEST, btnSelectProductsFile, 0, SpringLayout.WEST, btnSelectConfigurationFile);
-		frame.getContentPane().add(btnSelectProductsFile);
+		frmMapeadorDeCodigos.getContentPane().add(btnSelectProductsFile);
 		
 		JButton btnGenerar = new JButton("Generar");
-		springLayout.putConstraint(SpringLayout.SOUTH, btnGenerar, -10, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, btnGenerar, -10, SpringLayout.SOUTH, frmMapeadorDeCodigos.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, btnGenerar, 0, SpringLayout.EAST, btnSelectConfigurationFile);
 		btnGenerar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -132,48 +133,48 @@ public class CodeMapperGUI {
 				}
 			}
 		});
-		frame.getContentPane().add(btnGenerar);
+		frmMapeadorDeCodigos.getContentPane().add(btnGenerar);
 		
 		JLabel lblArchivoDeProductos = new JLabel("Archivo de productos:");
-		springLayout.putConstraint(SpringLayout.WEST, lblArchivoDeProductos, 10, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, lblArchivoDeProductos, 10, SpringLayout.WEST, frmMapeadorDeCodigos.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, lblArchivoDeProductos, 0, SpringLayout.SOUTH, btnSelectProductsFile);
-		frame.getContentPane().add(lblArchivoDeProductos);
+		frmMapeadorDeCodigos.getContentPane().add(lblArchivoDeProductos);
 		
 		lblProductsFile = new JLabel("FileName");
 		springLayout.putConstraint(SpringLayout.WEST, lblProductsFile, 6, SpringLayout.EAST, lblArchivoDeProductos);
 		springLayout.putConstraint(SpringLayout.SOUTH, lblProductsFile, 0, SpringLayout.SOUTH, btnSelectProductsFile);
-		frame.getContentPane().add(lblProductsFile);
+		frmMapeadorDeCodigos.getContentPane().add(lblProductsFile);
 		
 		JLabel lblPlanillaDeDistribuidora = new JLabel("Planilla de distribuidora:");
 		springLayout.putConstraint(SpringLayout.NORTH, lblPlanillaDeDistribuidora, 32, SpringLayout.SOUTH, lblArchivoDeProductos);
-		springLayout.putConstraint(SpringLayout.WEST, lblPlanillaDeDistribuidora, 10, SpringLayout.WEST, frame.getContentPane());
-		frame.getContentPane().add(lblPlanillaDeDistribuidora);
+		springLayout.putConstraint(SpringLayout.WEST, lblPlanillaDeDistribuidora, 10, SpringLayout.WEST, frmMapeadorDeCodigos.getContentPane());
+		frmMapeadorDeCodigos.getContentPane().add(lblPlanillaDeDistribuidora);
 		
 		comboBoxDistributors = new JComboBox<String>();
 		springLayout.putConstraint(SpringLayout.SOUTH, comboBoxDistributors, 0, SpringLayout.SOUTH, lblPlanillaDeDistribuidora);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxDistributors, 0, SpringLayout.EAST, btnSelectConfigurationFile);
-		frame.getContentPane().add(comboBoxDistributors);
+		frmMapeadorDeCodigos.getContentPane().add(comboBoxDistributors);
 		
 		JLabel lblCarpetaDeSalida = new JLabel("Carpeta de salida:");
 		springLayout.putConstraint(SpringLayout.NORTH, lblCarpetaDeSalida, 29, SpringLayout.SOUTH, lblPlanillaDeDistribuidora);
 		springLayout.putConstraint(SpringLayout.WEST, lblCarpetaDeSalida, 0, SpringLayout.WEST, lblArchivoDeConfiguracion);
-		frame.getContentPane().add(lblCarpetaDeSalida);
+		frmMapeadorDeCodigos.getContentPane().add(lblCarpetaDeSalida);
 		
 		lblOutputFolder = new JLabel("FileName");
 		springLayout.putConstraint(SpringLayout.WEST, lblOutputFolder, 6, SpringLayout.EAST, lblCarpetaDeSalida);
 		springLayout.putConstraint(SpringLayout.SOUTH, lblOutputFolder, 0, SpringLayout.SOUTH, lblCarpetaDeSalida);
-		frame.getContentPane().add(lblOutputFolder);
+		frmMapeadorDeCodigos.getContentPane().add(lblOutputFolder);
 		
 		JButton btnSeleccionar = new JButton("Seleccionar");
 		btnSeleccionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CodeMapperGUI.this.outputFolderChooser.showOpenDialog(CodeMapperGUI.this.frame);
+				CodeMapperGUI.this.outputFolderChooser.showOpenDialog(CodeMapperGUI.this.frmMapeadorDeCodigos);
 				CodeMapperGUI.this.updateFiles();
 			}
 		});
 		springLayout.putConstraint(SpringLayout.SOUTH, btnSeleccionar, 0, SpringLayout.SOUTH, lblCarpetaDeSalida);
 		springLayout.putConstraint(SpringLayout.EAST, btnSeleccionar, 0, SpringLayout.EAST, btnSelectConfigurationFile);
-		frame.getContentPane().add(btnSeleccionar);
+		frmMapeadorDeCodigos.getContentPane().add(btnSeleccionar);
 	}
 	
 	private void updateFiles(){
