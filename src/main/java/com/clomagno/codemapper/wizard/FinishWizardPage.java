@@ -4,9 +4,9 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 
 public class FinishWizardPage extends WizardPage {
-	private SharedData sharedData;
+	private PendingMap sharedData;
 
-	public FinishWizardPage(SharedData sharedData){
+	public FinishWizardPage(PendingMap sharedData){
 		super("");
 		
 		this.sharedData = sharedData;

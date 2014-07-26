@@ -4,8 +4,8 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 
 public class ConfigurationFileWizardPage extends WizardPage {
-	private SharedData sharedData;
-	public ConfigurationFileWizardPage(SharedData sharedData){
+	private PendingMap sharedData;
+	public ConfigurationFileWizardPage(PendingMap sharedData){
 		super("Configuration file selection");
 		
 		this.sharedData = sharedData;

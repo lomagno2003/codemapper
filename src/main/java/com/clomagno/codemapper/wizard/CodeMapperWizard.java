@@ -13,7 +13,7 @@ public class CodeMapperWizard extends Wizard {
 	public CodeMapperWizard() {
 		setWindowTitle("Code Mapper");
 		
-		SharedData sharedData = new SharedData();
+		PendingMap sharedData = new PendingMap();
 		
 		page1 = new ConfigurationFileWizardPage(sharedData);
 		page2 = new ProductsListFileWizardPage(sharedData);

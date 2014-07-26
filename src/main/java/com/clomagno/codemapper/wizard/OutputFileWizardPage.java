@@ -4,10 +4,10 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 
 public class OutputFileWizardPage extends WizardPage {
-	private SharedData sharedData;
+	private PendingMap sharedData;
 
 
-	public OutputFileWizardPage(SharedData sharedData){
+	public OutputFileWizardPage(PendingMap sharedData){
 		super("Configuration file selection");
 		
 		this.sharedData = sharedData;

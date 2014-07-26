@@ -4,9 +4,9 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.widgets.Composite;
 
 public class DistributorSelectionWizardPage extends WizardPage {
-	private SharedData sharedData;
+	private PendingMap sharedData;
 
-	public DistributorSelectionWizardPage(SharedData sharedData){
+	public DistributorSelectionWizardPage(PendingMap sharedData){
 		super("Configuration file selection");
 		
 		this.sharedData = sharedData;
