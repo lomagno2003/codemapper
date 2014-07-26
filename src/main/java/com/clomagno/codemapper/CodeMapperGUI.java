@@ -7,6 +7,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
@@ -16,7 +17,12 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import com.clomagno.codemapper.mapper.Mapper;
+import com.clomagno.codemapper.mapper.MapperFactory;
+import com.clomagno.codemapper.test.mapper.TestCase_MapperFactory;
 
 public class CodeMapperGUI {
 
@@ -26,11 +32,15 @@ public class CodeMapperGUI {
 	
 	private final JFileChooser productsFileChooser = new JFileChooser();
 	
+	private final JFileChooser outputFolderChooser = new JFileChooser();
+	
 	private JComboBox<String> comboBoxDistributors;
 	
 	private JLabel lblProductsFile;
 	
 	private JLabel lblConfigurationFile;
+	
+	private JLabel lblOutputFolder;
 
 	/**
 	 * Launch the application.
@@ -60,7 +70,7 @@ public class CodeMapperGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 449, 248);
+		frame.setBounds(100, 100, 449, 307);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
@@ -102,7 +112,24 @@ public class CodeMapperGUI {
 		springLayout.putConstraint(SpringLayout.EAST, btnGenerar, 0, SpringLayout.EAST, btnSelectConfigurationFile);
 		btnGenerar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO Add action listener for btnGenerateFile
+				try {
+					File configurationFile = CodeMapperGUI.this.configurationFileChooser.getSelectedFile();
+					File productsFile = CodeMapperGUI.this.productsFileChooser.getSelectedFile();
+					File outputFolder = CodeMapperGUI.this.outputFolderChooser.getCurrentDirectory();
+					
+					HSSFWorkbook configurationWorkbook = new HSSFWorkbook(new FileInputStream(configurationFile));
+					Mapper mapper = MapperFactory.getMapperFromWorkbook(configurationWorkbook);
+					
+					HSSFWorkbook productsWorkbook = new HSSFWorkbook(new FileInputStream(productsFile));
+			        HSSFWorkbook newWorkbook = mapper.doMap(CodeMapperGUI.this.comboBoxDistributors.getSelectedItem().toString(), productsWorkbook);
+			        
+			        FileOutputStream out = new FileOutputStream(new File(outputFolder.getAbsolutePath()+"/mapped.xlsx"));
+			        newWorkbook.write(out);
+		            out.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		frame.getContentPane().add(btnGenerar);
@@ -126,18 +153,46 @@ public class CodeMapperGUI {
 		springLayout.putConstraint(SpringLayout.SOUTH, comboBoxDistributors, 0, SpringLayout.SOUTH, lblPlanillaDeDistribuidora);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxDistributors, 0, SpringLayout.EAST, btnSelectConfigurationFile);
 		frame.getContentPane().add(comboBoxDistributors);
+		
+		JLabel lblCarpetaDeSalida = new JLabel("Carpeta de salida:");
+		springLayout.putConstraint(SpringLayout.NORTH, lblCarpetaDeSalida, 29, SpringLayout.SOUTH, lblPlanillaDeDistribuidora);
+		springLayout.putConstraint(SpringLayout.WEST, lblCarpetaDeSalida, 0, SpringLayout.WEST, lblArchivoDeConfiguracion);
+		frame.getContentPane().add(lblCarpetaDeSalida);
+		
+		lblOutputFolder = new JLabel("FileName");
+		springLayout.putConstraint(SpringLayout.WEST, lblOutputFolder, 6, SpringLayout.EAST, lblCarpetaDeSalida);
+		springLayout.putConstraint(SpringLayout.SOUTH, lblOutputFolder, 0, SpringLayout.SOUTH, lblCarpetaDeSalida);
+		frame.getContentPane().add(lblOutputFolder);
+		
+		JButton btnSeleccionar = new JButton("Seleccionar");
+		btnSeleccionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CodeMapperGUI.this.outputFolderChooser.showOpenDialog(CodeMapperGUI.this.frame);
+				CodeMapperGUI.this.updateFiles();
+			}
+		});
+		springLayout.putConstraint(SpringLayout.SOUTH, btnSeleccionar, 0, SpringLayout.SOUTH, lblCarpetaDeSalida);
+		springLayout.putConstraint(SpringLayout.EAST, btnSeleccionar, 0, SpringLayout.EAST, btnSelectConfigurationFile);
+		frame.getContentPane().add(btnSeleccionar);
 	}
 	
 	private void updateFiles(){
 		File configurationFile = this.configurationFileChooser.getSelectedFile();
 		File productsFile = this.productsFileChooser.getSelectedFile();
+		File outputFolder = this.outputFolderChooser.getCurrentDirectory();
+		
+		System.out.println(outputFolder.getAbsolutePath());
 		
 		if(configurationFile!=null){
 			this.lblConfigurationFile.setText(configurationFile.getName());
 		}
 
 		if(productsFile!=null){
-			this.lblProductsFile.setText(configurationFile.getName());
+			this.lblProductsFile.setText(productsFile.getName());
+		}
+		
+		if(outputFolder!=null){
+			this.lblOutputFolder.setText(outputFolder.getName());
 		}
 		
 		comboBoxDistributors.removeAllItems();
