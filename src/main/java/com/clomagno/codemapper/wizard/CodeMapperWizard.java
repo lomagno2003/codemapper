@@ -1,11 +1,16 @@
 package com.clomagno.codemapper.wizard;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 public class CodeMapperWizard extends Wizard {
+	private PendingMap pendingMap;
 	protected ConfigurationFileWizardPage page1;
 	protected ProductsListFileWizardPage page2;
 	protected DistributorSelectionWizardPage page3;
@@ -16,13 +21,17 @@ public class CodeMapperWizard extends Wizard {
 		super();
 		setWindowTitle("Code Mapper");
 
-		PendingMap sharedData = new PendingMap();
+		pendingMap = new PendingMap();
 
-		page1 = new ConfigurationFileWizardPage(sharedData);
-		page2 = new ProductsListFileWizardPage(sharedData);
-		page3 = new DistributorSelectionWizardPage(sharedData);
-		page4 = new OutputFileWizardPage(sharedData);
-		page5 = new FinishWizardPage(sharedData);
+		page1 = new ConfigurationFileWizardPage(pendingMap);
+		page2 = new ProductsListFileWizardPage(pendingMap);
+		page3 = new DistributorSelectionWizardPage(pendingMap);
+		page4 = new OutputFileWizardPage(pendingMap);
+		page5 = new FinishWizardPage(pendingMap);
+	}
+
+	public PendingMap getPendingMap() {
+		return pendingMap;
 	}
 
 	@Override
@@ -36,15 +45,27 @@ public class CodeMapperWizard extends Wizard {
 
 	@Override
 	public boolean performFinish() {
-		return true;
+		return this.pendingMap.canExecute();
 	}
 
 	public static void main(String[] args) {
 		Display display = new Display();
 		Shell shell = display.getActiveShell();
-		WizardDialog wizardDialog = new WizardDialog(shell, new CodeMapperWizard());
+		Wizard wizard = new CodeMapperWizard();
+		WizardDialog wizardDialog = new WizardDialog(shell,
+				wizard);
 		wizardDialog.create();
-		wizardDialog.open();
+		if (wizardDialog.open() == Window.OK) {
+			try {
+				((CodeMapperWizard)wizard).getPendingMap().execute();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
