@@ -1,20 +1,30 @@
 package com.clomagno.codemapper.wizard;
 
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 public class CodeMapperWizard extends Wizard {
-	private ConfigurationFileWizardPage page1;
-	private ProductsListFileWizardPage page2;
-	private DistributorSelectionWizardPage page3;
-	private OutputFileWizardPage page4;
-	private FinishWizardPage page5;
-	
+	protected ConfigurationFileWizardPage page1;
+	protected ProductsListFileWizardPage page2;
+	protected DistributorSelectionWizardPage page3;
+	protected OutputFileWizardPage page4;
+	protected FinishWizardPage page5;
+
 	public CodeMapperWizard() {
+		super();
 		setWindowTitle("Code Mapper");
-		
+
 		PendingMap sharedData = new PendingMap();
-		
+
 		page1 = new ConfigurationFileWizardPage(sharedData);
 		page2 = new ProductsListFileWizardPage(sharedData);
 		page3 = new DistributorSelectionWizardPage(sharedData);
@@ -34,6 +44,14 @@ public class CodeMapperWizard extends Wizard {
 	@Override
 	public boolean performFinish() {
 		return false;
+	}
+
+	public static void main(String[] args) {
+		Display display = new Display();
+		Shell shell = display.getActiveShell();
+		WizardDialog wizardDialog = new WizardDialog(shell, new CodeMapperWizard());
+		wizardDialog.create();
+		wizardDialog.open();
 	}
 
 }
