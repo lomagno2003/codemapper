@@ -12,18 +12,18 @@ import com.clomagno.codemapper.mapper.Mapper;
 import com.clomagno.codemapper.mapper.MapperFactory;
 
 public class PendingMap {
-	private File configurationFile;
+	private Mapper mapper;
 	private File productsFile;
 	private File outputFolder;
 
 	private String distributor;
 
-	public File getConfigurationFile() {
-		return configurationFile;
+	public Mapper getMapper() {
+		return mapper;
 	}
 
-	public void setConfigurationFile(File configurationFile) {
-		this.configurationFile = configurationFile;
+	public void setMapper(Mapper mapper) {
+		this.mapper = mapper;
 	}
 
 	public File getProductsFile() {
@@ -51,11 +51,6 @@ public class PendingMap {
 	}
 
 	public void execute() throws FileNotFoundException, IOException {
-		HSSFWorkbook configurationWorkbook = new HSSFWorkbook(
-				new FileInputStream(configurationFile));
-		Mapper mapper = MapperFactory
-				.getMapperFromWorkbook(configurationWorkbook);
-
 		HSSFWorkbook productsWorkbook = new HSSFWorkbook(new FileInputStream(
 				productsFile));
 		HSSFWorkbook newWorkbook = mapper.doMap(distributor, productsWorkbook);

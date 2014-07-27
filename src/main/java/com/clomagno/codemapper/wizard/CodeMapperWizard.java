@@ -43,7 +43,7 @@ public class CodeMapperWizard extends Wizard {
 
 	@Override
 	public boolean performFinish() {
-		return false;
+		return true;
 	}
 
 	public static void main(String[] args) {
