@@ -32,7 +32,7 @@ public class ProductsListFileWizardPage extends WizardPage {
 	private Text text;
 	
 	public ProductsListFileWizardPage(PendingMap sharedData){
-		super("Configuration file selection");
+		super("Selección del archivo del distribuidor");
 		
 		this.sharedData = sharedData;
 	}
@@ -84,16 +84,12 @@ public class ProductsListFileWizardPage extends WizardPage {
 	@Override
 	public boolean isPageComplete(){
 		try {
-			File configurationFile = new File(text.getText());
+			File productsFile = new File(text.getText());
+
+			HSSFWorkbook productsWorkbook = new HSSFWorkbook(new FileInputStream(
+					productsFile));
 			
-			HSSFWorkbook configurationWorkbook;
-			
-			configurationWorkbook = new HSSFWorkbook(
-					new FileInputStream(configurationFile));
-			
-			Mapper mapper = MapperFactory.getMapperFromWorkbook(configurationWorkbook);
-			
-			this.sharedData.setMapper(mapper);
+			this.sharedData.setProductsWorkbook(productsWorkbook);
 
 			return true;
 		} catch (FileNotFoundException e) {

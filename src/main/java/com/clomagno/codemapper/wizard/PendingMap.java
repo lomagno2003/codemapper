@@ -13,10 +13,27 @@ import com.clomagno.codemapper.mapper.MapperFactory;
 
 public class PendingMap {
 	private Mapper mapper;
-	private File productsFile;
+	private HSSFWorkbook configurationWorkbook;
+	private HSSFWorkbook productsWorkbook;
 	private File outputFolder;
 
 	private String distributor;
+
+	public HSSFWorkbook getConfigurationWorkbook() {
+		return configurationWorkbook;
+	}
+
+	public void setConfigurationWorkbook(HSSFWorkbook configurationWorkbook) {
+		this.configurationWorkbook = configurationWorkbook;
+	}
+
+	public HSSFWorkbook getProductsWorkbook() {
+		return productsWorkbook;
+	}
+
+	public void setProductsWorkbook(HSSFWorkbook productsWorkbook) {
+		this.productsWorkbook = productsWorkbook;
+	}
 
 	public Mapper getMapper() {
 		return mapper;
@@ -24,14 +41,6 @@ public class PendingMap {
 
 	public void setMapper(Mapper mapper) {
 		this.mapper = mapper;
-	}
-
-	public File getProductsFile() {
-		return productsFile;
-	}
-
-	public void setProductsFile(File productsFile) {
-		this.productsFile = productsFile;
 	}
 
 	public File getOutputFolder() {
@@ -51,8 +60,6 @@ public class PendingMap {
 	}
 
 	public void execute() throws FileNotFoundException, IOException {
-		HSSFWorkbook productsWorkbook = new HSSFWorkbook(new FileInputStream(
-				productsFile));
 		HSSFWorkbook newWorkbook = mapper.doMap(distributor, productsWorkbook);
 
 		FileOutputStream out = new FileOutputStream(new File(

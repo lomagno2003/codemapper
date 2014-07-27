@@ -1,14 +1,7 @@
 package com.clomagno.codemapper.wizard;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-
-import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 

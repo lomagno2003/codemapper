@@ -33,7 +33,7 @@ public class ConfigurationFileWizardPage extends WizardPage {
 	private Text text;
 	
 	public ConfigurationFileWizardPage(PendingMap sharedData){
-		super("Configuration file selection");
+		super("Selección del archivo de Configuracion");
 		
 		this.sharedData = sharedData;
 	}
@@ -92,8 +92,10 @@ public class ConfigurationFileWizardPage extends WizardPage {
 			configurationWorkbook = new HSSFWorkbook(
 					new FileInputStream(configurationFile));
 			
+			
 			Mapper mapper = MapperFactory.getMapperFromWorkbook(configurationWorkbook);
 			
+			this.sharedData.setConfigurationWorkbook(configurationWorkbook);
 			this.sharedData.setMapper(mapper);
 
 			return true;
