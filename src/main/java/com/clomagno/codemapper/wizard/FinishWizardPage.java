@@ -9,7 +9,7 @@ public class FinishWizardPage extends WizardPage {
 
 	public FinishWizardPage(PendingMap sharedData){
 		super("");
-		
+		this.setDescription("Pulse Finish para generar el archivo");
 		this.sharedData = sharedData;
 	}
 	public void createControl(Composite parent) {

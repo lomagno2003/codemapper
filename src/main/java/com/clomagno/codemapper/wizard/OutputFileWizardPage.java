@@ -87,7 +87,9 @@ public class OutputFileWizardPage extends WizardPage {
 		File outputFile = new File(text.getText());
 
 		try {
-			if(outputFile.createNewFile()){
+			System.out.println("Test1");
+			if(outputFile.createNewFile()||outputFile.canWrite()){
+				System.out.println("Test2");
 				this.sharedData.setOutputFile(outputFile);
 				return true;
 			}
