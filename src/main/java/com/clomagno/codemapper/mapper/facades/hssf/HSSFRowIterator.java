@@ -2,23 +2,29 @@ package com.clomagno.codemapper.mapper.facades.hssf;
 
 import java.util.Iterator;
 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.ss.usermodel.Row;
 
 import com.clomagno.codemapper.mapper.IRow;
 
 public class HSSFRowIterator implements Iterator<IRow>{
-	private Iterator<Row> iterator;
+	private HSSFSheet sheet;
 	
-	public HSSFRowIterator(Iterator<Row> iterator){
-		this.iterator = iterator;
+	private Integer actualRow;
+	
+	public HSSFRowIterator(HSSFSheet sheet){
+		this.sheet = sheet;
+		this.actualRow = 0;
 	}
 	
 	public boolean hasNext() {
-		return iterator.hasNext();
+		return actualRow < sheet.getLastRowNum();
 	}
 
 	public IRow next() {
-		return new HSSFRowFacade(iterator.next());
+		IRow result = new HSSFRowFacade(sheet.getRow(actualRow));
+		actualRow++;
+		return result;
 	}
 
 	public void remove() {

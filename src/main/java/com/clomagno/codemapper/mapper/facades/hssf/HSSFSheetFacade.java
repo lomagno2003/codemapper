@@ -15,7 +15,7 @@ public class HSSFSheetFacade implements ISheet{
 	}
 
 	public Iterator<IRow> iterator() {
-		return new HSSFRowIterator(sheet.rowIterator());
+		return new HSSFRowIterator(sheet);
 	}
 
 	public IRow createRow(Integer rowIndex) {

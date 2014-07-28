@@ -13,7 +13,11 @@ public class HSSFCellFacade implements ICell {
 	
 	@Override
 	public String toString(){
-		return cell.toString();
+		if(cell!=null){
+			return cell.toString();
+		} else {
+			return null;
+		}
 	}
 
 	public void setCellValue(String value) {

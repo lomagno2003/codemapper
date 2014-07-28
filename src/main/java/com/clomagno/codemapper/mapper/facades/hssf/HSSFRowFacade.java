@@ -15,7 +15,7 @@ public class HSSFRowFacade implements IRow {
 	}
 
 	public Iterator<ICell> iterator() {
-		return new HSSFCellIterator(row.cellIterator());
+		return new HSSFCellIterator(row);
 	}
 
 	public ICell createCell(Integer cellIndex) {
