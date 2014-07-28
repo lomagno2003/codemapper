@@ -18,10 +18,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.clomagno.codemapper.mapper.Configuration;
-import com.clomagno.codemapper.mapper.Mapper;
-import com.clomagno.codemapper.mapper.MapperFactory;
+import com.clomagno.codemapper.mapper.ISheet;
 import com.clomagno.codemapper.mapper.exceptions.BadHeadersException;
 import com.clomagno.codemapper.mapper.exceptions.MapperException;
+import com.clomagno.codemapper.mapper.facades.hssf.HSSFSheetFacade;
+import com.clomagno.codemapper.mapper.facades.hssf.HSSFWorkbookFacade;
+import com.clomagno.codemapper.mapper.impls.HSSFMapper;
+import com.clomagno.codemapper.mapper.impls.MapperFactory;
 
 public class TestCase_MapperFactory {
 	@Before
@@ -32,15 +35,15 @@ public class TestCase_MapperFactory {
 	@Test
 	public void testGetMapperFromFile() throws IOException, MapperException{
 		HSSFWorkbook workbookConfiguration = new HSSFWorkbook(TestCase_MapperFactory.class.getResourceAsStream("mapping1.xls"));
-		Mapper mapper = MapperFactory.getMapperFromWorkbook(workbookConfiguration);
+		HSSFMapper mapper = MapperFactory.getMapperFromWorkbook(workbookConfiguration);
         
                 
         HSSFWorkbook externalWorkbook = new HSSFWorkbook(TestCase_MapperFactory.class.getResourceAsStream("distributor1.xls"));
         
-        HSSFSheet mappedSheet = mapper.doMap("distributor1", externalWorkbook).getSheet(Mapper.MAPPED_SHEET_NAME);
+        ISheet mappedSheet = mapper.doMap("distributor1", new HSSFWorkbookFacade(externalWorkbook)).getSheet(HSSFMapper.MAPPED_SHEET_NAME);
         
 		String distributor1Expected[][]={
-        		{Mapper.INTERNAL_CODE_COLUMN_NAME,"ec1","price","Product"},
+        		{HSSFMapper.INTERNAL_CODE_COLUMN_NAME,"ec1","price","Product"},
         		{"c1_d1","c10","100.0","Pera"},
         		{"c2_d1","c11","100.0","Manzana"},
         		{"c3_d1","c12","100.0","Banana"}
@@ -78,7 +81,7 @@ public class TestCase_MapperFactory {
 		configuration.setSuffix("-sufix");
 		
 		String distributor1[][]={
-        		{"ExternalCode",Mapper.INTERNAL_CODE_COLUMN_NAME},
+        		{"ExternalCode",HSSFMapper.INTERNAL_CODE_COLUMN_NAME},
         		{"10","1"},
         		{"11","2"},
         		{"12","3"}
@@ -106,7 +109,7 @@ public class TestCase_MapperFactory {
         		};
 		
 		String distributor1Maps[][]={
-        		{"code-d1",Mapper.INTERNAL_CODE_COLUMN_NAME},
+        		{"code-d1",HSSFMapper.INTERNAL_CODE_COLUMN_NAME},
         		{"10","1"},
         		{"11","2"},
         		{"12","3"}
@@ -120,7 +123,7 @@ public class TestCase_MapperFactory {
         		};
 
 		String distributor1Expected[][]={
-        		{Mapper.INTERNAL_CODE_COLUMN_NAME,"code-d1","Price","Product"},
+        		{HSSFMapper.INTERNAL_CODE_COLUMN_NAME,"code-d1","Price","Product"},
         		{"1-d1","10","100.0","Pera"},
         		{"2-d1","11","100.0","Manzana"},
         		{"3-d1","12","100.0","Banana"}
@@ -130,12 +133,12 @@ public class TestCase_MapperFactory {
 		HSSFSheetFactory.createSheetFromArray(workbookConfiguration, MapperFactory.GENERAL_CONFIGURATION_SHEET_NAME, generalConfiguration);
 		HSSFSheetFactory.createSheetFromArray(workbookConfiguration, "distributor1", distributor1Maps);
 
-        Mapper mapper = MapperFactory.getMapperFromWorkbook(workbookConfiguration);
+        HSSFMapper mapper = MapperFactory.getMapperFromWorkbook(workbookConfiguration);
         
         HSSFWorkbook distributorDataWorkbook = new HSSFWorkbook();
         
         HSSFSheet externalSheet = HSSFSheetFactory.createSheetFromArray(distributorDataWorkbook, "distributor1", distributor1);
-        HSSFSheet mappedSheet = mapper.doMap("distributor1", externalSheet).getSheet(Mapper.MAPPED_SHEET_NAME);
+        ISheet mappedSheet = mapper.doMap("distributor1", new HSSFSheetFacade(externalSheet)).getSheet(HSSFMapper.MAPPED_SHEET_NAME);
         
         TestCase_Mapper.testSheet(mappedSheet, distributor1Expected);
 	}

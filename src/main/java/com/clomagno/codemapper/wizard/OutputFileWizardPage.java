@@ -24,8 +24,8 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import com.clomagno.codemapper.mapper.Mapper;
-import com.clomagno.codemapper.mapper.MapperFactory;
+import com.clomagno.codemapper.mapper.impls.HSSFMapper;
+import com.clomagno.codemapper.mapper.impls.MapperFactory;
 
 public class OutputFileWizardPage extends WizardPage {
 	private static final String DESCRIPTION="Selecciona el archivo de salida";

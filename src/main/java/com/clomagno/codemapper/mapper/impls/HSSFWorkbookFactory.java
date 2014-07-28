@@ -1,4 +1,4 @@
-package com.clomagno.codemapper.mapper;
+package com.clomagno.codemapper.mapper.impls;
 
 import java.io.File;
 

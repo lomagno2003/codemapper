@@ -13,6 +13,9 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
+import com.clomagno.codemapper.mapper.ISheet;
+import com.clomagno.codemapper.mapper.IWorkbook;
+
 public class DistributorSelectionWizardPage extends WizardPage {
 	private static final String DESCRIPTION = "Selecciona el distribuidor";
 	
@@ -52,13 +55,13 @@ public class DistributorSelectionWizardPage extends WizardPage {
 		if(value){
 			list.removeAll();
 			
-			HSSFWorkbook configurationWorkbook = this.sharedData.getConfigurationWorkbook();
-			HSSFWorkbook productsWorkbook = this.sharedData.getProductsWorkbook();
+			IWorkbook configurationWorkbook = this.sharedData.getConfigurationWorkbook();
+			IWorkbook productsWorkbook = this.sharedData.getProductsWorkbook();
 			
-			for(int i=0;i<configurationWorkbook.getNumberOfSheets();i++){
-				for(int j=0;j<productsWorkbook.getNumberOfSheets();j++){
-					if(configurationWorkbook.getSheetName(i).equals(productsWorkbook.getSheetName(j))){
-						list.add(productsWorkbook.getSheetName(j).toString());
+			for(ISheet sheet:configurationWorkbook){
+				for(ISheet sheet2:productsWorkbook){
+					if(sheet.getName().equals(sheet2.getName())){
+						list.add(sheet.getName());
 					}
 				}
 			}

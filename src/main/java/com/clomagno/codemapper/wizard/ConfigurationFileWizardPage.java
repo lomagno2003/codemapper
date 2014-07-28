@@ -24,10 +24,11 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 
-import com.clomagno.codemapper.mapper.Mapper;
-import com.clomagno.codemapper.mapper.MapperFactory;
 import com.clomagno.codemapper.mapper.exceptions.BadHeadersException;
 import com.clomagno.codemapper.mapper.exceptions.MapperException;
+import com.clomagno.codemapper.mapper.facades.hssf.HSSFWorkbookFacade;
+import com.clomagno.codemapper.mapper.impls.HSSFMapper;
+import com.clomagno.codemapper.mapper.impls.MapperFactory;
 
 public class ConfigurationFileWizardPage extends WizardPage {
 	private static final String DESCRIPTION="Selecciona el archivo de configuración";
@@ -97,9 +98,9 @@ public class ConfigurationFileWizardPage extends WizardPage {
 				configurationWorkbook = new HSSFWorkbook(
 						new FileInputStream(configurationFile));
 				
-				Mapper mapper = MapperFactory.getMapperFromWorkbook(configurationWorkbook);
+				HSSFMapper mapper = MapperFactory.getMapperFromWorkbook(configurationWorkbook);
 				
-				this.sharedData.setConfigurationWorkbook(configurationWorkbook);
+				this.sharedData.setConfigurationWorkbook(new HSSFWorkbookFacade(configurationWorkbook));
 				this.sharedData.setMapper(mapper);
 				
 				this.setDescription(DESCRIPTION);

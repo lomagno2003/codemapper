@@ -1,4 +1,4 @@
-package com.clomagno.codemapper.mapper;
+package com.clomagno.codemapper.mapper.impls;
 
 import java.io.File;
 import java.util.Iterator;
@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.jamel.dbf.DbfReader;
 
+import com.clomagno.codemapper.mapper.Configuration;
 import com.clomagno.codemapper.mapper.exceptions.BadHeadersException;
 import com.clomagno.codemapper.mapper.exceptions.MapperException;
 
@@ -38,13 +39,13 @@ public class MapperFactory {
 		return null;
 	}
 	
-	public static Mapper getMapperFromDBF(File dbfFile) throws BadHeadersException{
+	public static HSSFMapper getMapperFromDBF(File dbfFile) throws BadHeadersException{
 		return getMapperFromWorkbook(HSSFWorkbookFactory.getMapperFromDBF(dbfFile, MapperFactory.GENERAL_CONFIGURATION_SHEET_NAME));
 	}
 
-	public static Mapper getMapperFromWorkbook(HSSFWorkbook configuration)
+	public static HSSFMapper getMapperFromWorkbook(HSSFWorkbook configuration)
 			throws BadHeadersException {
-		Mapper result = new Mapper();
+		HSSFMapper result = new HSSFMapper();
 
 		HSSFSheet generalConfiguration = configuration
 				.getSheet(GENERAL_CONFIGURATION_SHEET_NAME);
@@ -109,7 +110,7 @@ public class MapperFactory {
 	public static void configureDistributorMappings(
 			Configuration configuration, HSSFSheet distributorMappingSheet) {
 		Integer internalCodeIndex = findHeaderIndex(distributorMappingSheet,
-				Mapper.INTERNAL_CODE_COLUMN_NAME);
+				HSSFMapper.INTERNAL_CODE_COLUMN_NAME);
 		Integer externalCodeIndex = findHeaderIndex(distributorMappingSheet,
 				configuration.getExternalColumnName());
 

@@ -23,8 +23,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import com.clomagno.codemapper.mapper.Mapper;
-import com.clomagno.codemapper.mapper.MapperFactory;
+import com.clomagno.codemapper.mapper.facades.hssf.HSSFWorkbookFacade;
+import com.clomagno.codemapper.mapper.impls.HSSFMapper;
+import com.clomagno.codemapper.mapper.impls.MapperFactory;
 
 public class ProductsListFileWizardPage extends WizardPage {
 	private static final String DESCRIPTION="Selecciona el archivo de articulos";
@@ -93,7 +94,7 @@ public class ProductsListFileWizardPage extends WizardPage {
 				HSSFWorkbook productsWorkbook = new HSSFWorkbook(new FileInputStream(
 						productsFile));
 				
-				this.sharedData.setProductsWorkbook(productsWorkbook);
+				this.sharedData.setProductsWorkbook(new HSSFWorkbookFacade(productsWorkbook));
 				
 				this.setDescription(DESCRIPTION);
 				this.setErrorMessage(null);

@@ -26,8 +26,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.clomagno.codemapper.mapper.Configuration;
-import com.clomagno.codemapper.mapper.Mapper;
-import com.clomagno.codemapper.mapper.MapperFactory;
+import com.clomagno.codemapper.mapper.impls.HSSFMapper;
+import com.clomagno.codemapper.mapper.impls.MapperFactory;
 
 public class TestCase_MapperFactory_OriginalFiles {
 	private String getCell(String sheet, Integer row, Integer column,
