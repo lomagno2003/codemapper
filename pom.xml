@@ -39,6 +39,13 @@
 			<artifactId>org.eclipse.jface</artifactId>
 			<version>3.7.0.v20110928-1505</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.jamel.dbf</groupId>
+			<artifactId>dbf-reader</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
