@@ -40,20 +40,19 @@ public class TestCase_MapperFactory_OriginalFiles {
 			IWorkbook workbook) {
 		Integer rowNumber = 0;
 		for(IRow row:workbook.getSheet(sheet)){
-			if(rowNumber == rowIndex){
+			if(rowNumber.equals(rowIndex)){
 				Integer cellNumber = 0;
 				for(ICell cell:row){
-					System.out.println("["+rowIndex+","+cellNumber+"]:"+cell.toString());
-					if(cellNumber == columnIndex){
-						
+					if(cellNumber == columnIndex){						
 						return cell.toString();
 					}
 					cellNumber++;
 				}
+				throw new NullPointerException();
 			}
 			rowNumber++;
 		}
-		return null;
+		throw new NullPointerException();
 	}
 
 	@Before
@@ -67,7 +66,7 @@ public class TestCase_MapperFactory_OriginalFiles {
 				.getResourceAsStream("VW.DBF");
 
 		IWorkbook workbook = new DBFWorkbookFacade(inputStream);
-		
+
 		assertEquals("8.9", getCell("articulos", 17, 4, workbook));
 
 		assertEquals("857632B",

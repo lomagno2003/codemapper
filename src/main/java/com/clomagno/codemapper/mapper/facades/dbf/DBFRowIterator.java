@@ -8,17 +8,23 @@ import com.clomagno.codemapper.mapper.IRow;
 
 public class DBFRowIterator implements Iterator<IRow> {
 	private DbfReader reader;
+	
+	private Object[] auxRecord;
 
 	public DBFRowIterator(DbfReader reader) {
 		this.reader = reader;
+		this.auxRecord = reader.nextRecord();
+		
 	}
 
 	public boolean hasNext() {
-		return reader.canSeek();
+		return this.auxRecord != null;
 	}
 
 	public IRow next() {
-		return new DBFRowFacade(reader.nextRecord());
+		Object[] result = auxRecord;
+		auxRecord=reader.nextRecord();
+		return new DBFRowFacade(result);
 	}
 
 	public void remove() {

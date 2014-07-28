@@ -12,5 +12,10 @@ public class DBFCellFacade implements ICell {
 	public void setCellValue(String value) {
 		content = value;
 	}
+	
+	@Override
+	public String toString(){
+		return content.toString();
+	}
 
 }
