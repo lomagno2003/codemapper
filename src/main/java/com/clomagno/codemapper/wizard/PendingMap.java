@@ -10,6 +10,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.clomagno.codemapper.mapper.Mapper;
 import com.clomagno.codemapper.mapper.MapperFactory;
+import com.clomagno.codemapper.mapper.exceptions.MapperException;
 
 public class PendingMap {
 	private Mapper mapper;
@@ -76,7 +77,7 @@ public class PendingMap {
 	}
 
 
-	public void execute() throws FileNotFoundException, IOException {
+	public void execute() throws FileNotFoundException, IOException, MapperException {
 		HSSFWorkbook newWorkbook = mapper.doMap(distributor, productsWorkbook);
 
 		FileOutputStream out = new FileOutputStream(new File(

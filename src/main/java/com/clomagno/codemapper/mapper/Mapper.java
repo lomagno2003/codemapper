@@ -2,12 +2,19 @@ package com.clomagno.codemapper.mapper;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+
+import com.clomagno.codemapper.mapper.exceptions.BadHeadersException;
+import com.clomagno.codemapper.mapper.exceptions.MapperException;
+import com.clomagno.codemapper.mapper.exceptions.UnknowDistributorException;
+import com.clomagno.codemapper.mapper.exceptions.UnmappedCodesException;
 
 public class Mapper {
 	public static String INTERNAL_CODE_COLUMN_NAME = "ICCN";
@@ -27,13 +34,13 @@ public class Mapper {
 		this.configurations = configurations;
 	}
 	
-	public HSSFWorkbook doMap(String distributorName, HSSFWorkbook externalWorkbook){
+	public HSSFWorkbook doMap(String distributorName, HSSFWorkbook externalWorkbook) throws MapperException{
 		return doMap(distributorName, externalWorkbook.getSheet(distributorName));
 	}
 
-	public HSSFWorkbook doMap(String distributorName, HSSFSheet externalSheet){
+	public HSSFWorkbook doMap(String distributorName, HSSFSheet externalSheet) throws MapperException{
 		if(!configurations.containsKey(distributorName)){
-			throw new NullPointerException("Couldn't find the distributor name");
+			throw new UnknowDistributorException();
 		}
 		
         HSSFWorkbook result = new HSSFWorkbook(); 
@@ -43,7 +50,7 @@ public class Mapper {
 		
 		Integer codeColumnIndex = getCodeColumnIndex(distributorConfiguration, externalSheet);
 		if(codeColumnIndex==null){
-			throw new NullPointerException("Couldn't find the code column");
+			throw new BadHeadersException();
 		}
 		
 		copyFirstRow(externalSheet,resultSheet);
@@ -52,30 +59,38 @@ public class Mapper {
 		
 		rowIterator.next(); //Ignore the first row
 		Integer rowNumber = 1;
+		List<Row> unmappedCodes = new LinkedList<Row>();
 		
         while (rowIterator.hasNext()) 
         {
             Row row = rowIterator.next();
-            Row newRow = resultSheet.createRow(rowNumber);
             
-            String code = distributorConfiguration.getMappings().get(row.getCell(codeColumnIndex).toString()) + distributorConfiguration.getSuffix();
+            if(distributorConfiguration.getMappings().containsKey(row.getCell(codeColumnIndex).toString())){
+                Row newRow = resultSheet.createRow(rowNumber);
 
-            newRow.createCell(0).setCellValue(code);
-            
-            //For each row, iterate through all the columns
-            Iterator<Cell> cellIterator = row.cellIterator();
-            Integer columnIndex = 1;
-            while (cellIterator.hasNext())
-            {
-                Cell cell = cellIterator.next();
-                
-                newRow.createCell(columnIndex).setCellValue(cell.toString());
-                
-                columnIndex++;
-                
+	            String code = distributorConfiguration.getMappings().get(row.getCell(codeColumnIndex).toString()) + distributorConfiguration.getSuffix();
+	
+	            newRow.createCell(0).setCellValue(code);
+	            
+	            Iterator<Cell> cellIterator = row.cellIterator();
+	            Integer columnIndex = 1;
+	            while (cellIterator.hasNext())
+	            {
+	                Cell cell = cellIterator.next();
+	                
+	                newRow.createCell(columnIndex).setCellValue(cell.toString());
+	                
+	                columnIndex++;
+	            }
+            } else {
+            	unmappedCodes.add(row);
             }
             
             rowNumber++;
+        }
+        
+        if(!unmappedCodes.isEmpty()){
+        	throw new UnmappedCodesException(unmappedCodes);
         }
         
 		return result;

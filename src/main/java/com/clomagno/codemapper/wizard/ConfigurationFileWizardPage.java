@@ -26,15 +26,19 @@ import org.eclipse.swt.events.KeyEvent;
 
 import com.clomagno.codemapper.mapper.Mapper;
 import com.clomagno.codemapper.mapper.MapperFactory;
+import com.clomagno.codemapper.mapper.exceptions.BadHeadersException;
+import com.clomagno.codemapper.mapper.exceptions.MapperException;
 
 public class ConfigurationFileWizardPage extends WizardPage {
+	private static final String DESCRIPTION="Selecciona el archivo de configuración";
 	private PendingMap sharedData;
 	
 	private Text text;
 	
 	public ConfigurationFileWizardPage(PendingMap sharedData){
 		super("Selección del archivo de Configuracion");
-		
+		this.setDescription(DESCRIPTION);
+
 		this.sharedData = sharedData;
 	}
 	
@@ -84,29 +88,33 @@ public class ConfigurationFileWizardPage extends WizardPage {
 	
 	@Override
 	public boolean isPageComplete(){
-		try {
-			File configurationFile = new File(text.getText());
-			
-			HSSFWorkbook configurationWorkbook;
-			
-			configurationWorkbook = new HSSFWorkbook(
-					new FileInputStream(configurationFile));
-			
-			
-			Mapper mapper = MapperFactory.getMapperFromWorkbook(configurationWorkbook);
-			
-			this.sharedData.setConfigurationWorkbook(configurationWorkbook);
-			this.sharedData.setMapper(mapper);
-
-			return true;
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(!text.getText().equals("")){
+			try {
+				File configurationFile = new File(text.getText());
+				
+				HSSFWorkbook configurationWorkbook;
+				
+				configurationWorkbook = new HSSFWorkbook(
+						new FileInputStream(configurationFile));
+				
+				Mapper mapper = MapperFactory.getMapperFromWorkbook(configurationWorkbook);
+				
+				this.sharedData.setConfigurationWorkbook(configurationWorkbook);
+				this.sharedData.setMapper(mapper);
+				
+				this.setDescription(DESCRIPTION);
+				this.setErrorMessage(null);
+				
+				return true;
+			} catch (FileNotFoundException e) {
+				this.setErrorMessage("No se pudo encontrar el archivo de configuración ingresado, comprueba que la ruta del archivo sea correcta");
+			} catch (IOException e) {
+				this.setErrorMessage("Hubo un error al intentar leer el archivo, asegurate que sea del tipo .xls o .xlsx");
+			} catch (BadHeadersException e) {
+				this.setErrorMessage("El formato del archivo ingresado no parece ser de un archivo de configuración. Comprueba que sea el archivo correcto.");
+			}
 		}
-
+		
 		return false;
 	}
 }

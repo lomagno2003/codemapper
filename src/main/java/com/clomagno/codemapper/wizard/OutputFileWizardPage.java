@@ -28,12 +28,14 @@ import com.clomagno.codemapper.mapper.Mapper;
 import com.clomagno.codemapper.mapper.MapperFactory;
 
 public class OutputFileWizardPage extends WizardPage {
+	private static final String DESCRIPTION="Selecciona el archivo de salida";
 	private PendingMap sharedData;
 	
 	private Text text;
 	
 	public OutputFileWizardPage(PendingMap sharedData){
-		super("Selección del archivo de Configuracion");
+		super(DESCRIPTION);
+		this.setDescription(DESCRIPTION);
 		
 		this.sharedData = sharedData;
 	}
@@ -48,7 +50,7 @@ public class OutputFileWizardPage extends WizardPage {
 		fd_lblArchivoDeConfiguracin.top = new FormAttachment(0, 52);
 		fd_lblArchivoDeConfiguracin.left = new FormAttachment(0, 10);
 		lblArchivoDeConfiguracin.setLayoutData(fd_lblArchivoDeConfiguracin);
-		lblArchivoDeConfiguracin.setText("Archivo de configuración:");
+		lblArchivoDeConfiguracin.setText("Archivo de salida:");
 		
 		text = new Text(container, SWT.BORDER);
 		text.addKeyListener(new KeyAdapter() {
@@ -87,15 +89,16 @@ public class OutputFileWizardPage extends WizardPage {
 		File outputFile = new File(text.getText());
 
 		try {
-			System.out.println("Test1");
 			if(outputFile.createNewFile()||outputFile.canWrite()){
-				System.out.println("Test2");
 				this.sharedData.setOutputFile(outputFile);
+				
+				this.setDescription(DESCRIPTION);
+				this.setErrorMessage(null);
+				
 				return true;
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			this.setErrorMessage("No se puede usar el archivo indicado. Por favor elige otro");
 		}
 
 		return false;

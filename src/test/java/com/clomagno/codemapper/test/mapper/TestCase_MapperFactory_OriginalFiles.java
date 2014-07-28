@@ -6,6 +6,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -44,6 +45,6 @@ public class TestCase_MapperFactory_OriginalFiles {
         
         assertEquals("857632B",getCell("articulos",37551,6,externalWorkbook));
         
-        assertEquals("08-May-2007",getCell("articulos",30381,14,externalWorkbook));
+        assertEquals("08-May-2007".toUpperCase(),getCell("articulos",30381,14,externalWorkbook).toUpperCase());
 	}
 }

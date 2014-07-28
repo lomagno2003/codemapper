@@ -9,6 +9,8 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import com.clomagno.codemapper.mapper.exceptions.MapperException;
+
 public class CodeMapperWizard extends Wizard {
 	private PendingMap pendingMap;
 	protected ConfigurationFileWizardPage page1;
@@ -62,6 +64,9 @@ public class CodeMapperWizard extends Wizard {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MapperException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

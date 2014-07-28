@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import com.clomagno.codemapper.mapper.Configuration;
 import com.clomagno.codemapper.mapper.Mapper;
+import com.clomagno.codemapper.mapper.exceptions.MapperException;
 
 public class TestCase_Mapper {
 	private Mapper mapper;
@@ -25,7 +26,7 @@ public class TestCase_Mapper {
 	}
 
 	@Test
-	public void testDoMap() {
+	public void testDoMap() throws MapperException {
 		Configuration configuration = new Configuration();
 		
 		Map<String,String> mappings = new HashMap<String,String>();

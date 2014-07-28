@@ -27,13 +27,16 @@ import com.clomagno.codemapper.mapper.Mapper;
 import com.clomagno.codemapper.mapper.MapperFactory;
 
 public class ProductsListFileWizardPage extends WizardPage {
+	private static final String DESCRIPTION="Selecciona el archivo de articulos";
+
 	private PendingMap sharedData;
 	
 	private Text text;
 	
 	public ProductsListFileWizardPage(PendingMap sharedData){
 		super("Selección del archivo del distribuidor");
-		
+		this.setDescription(DESCRIPTION);
+
 		this.sharedData = sharedData;
 	}
 	
@@ -47,7 +50,7 @@ public class ProductsListFileWizardPage extends WizardPage {
 		fd_lblArchivoDeConfiguracin.top = new FormAttachment(0, 52);
 		fd_lblArchivoDeConfiguracin.left = new FormAttachment(0, 10);
 		lblArchivoDeConfiguracin.setLayoutData(fd_lblArchivoDeConfiguracin);
-		lblArchivoDeConfiguracin.setText("Archivo de configuración:");
+		lblArchivoDeConfiguracin.setText("Archivo de articulos:");
 		
 		text = new Text(container, SWT.BORDER);
 		text.addKeyListener(new KeyAdapter() {
@@ -83,21 +86,23 @@ public class ProductsListFileWizardPage extends WizardPage {
 	
 	@Override
 	public boolean isPageComplete(){
-		try {
-			File productsFile = new File(text.getText());
-
-			HSSFWorkbook productsWorkbook = new HSSFWorkbook(new FileInputStream(
-					productsFile));
-			
-			this.sharedData.setProductsWorkbook(productsWorkbook);
-
-			return true;
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(!text.getText().equals("")){
+			try {
+				File productsFile = new File(text.getText());
+	
+				HSSFWorkbook productsWorkbook = new HSSFWorkbook(new FileInputStream(
+						productsFile));
+				
+				this.sharedData.setProductsWorkbook(productsWorkbook);
+				
+				this.setDescription(DESCRIPTION);
+				this.setErrorMessage(null);
+				return true;
+			} catch (FileNotFoundException e) {
+				this.setErrorMessage("No se pudo encontrar el archivo de articulos ingresado, comprueba que la ruta del archivo sea correcta");
+			} catch (IOException e) {
+				this.setErrorMessage("Hubo un error al intentar leer el archivo, asegurate que sea del tipo .xls o .xlsx");
+			}
 		}
 
 		return false;

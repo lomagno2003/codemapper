@@ -7,6 +7,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+import com.clomagno.codemapper.mapper.exceptions.BadHeadersException;
+import com.clomagno.codemapper.mapper.exceptions.MapperException;
+
 public class MapperFactory {
 	public static String GENERAL_CONFIGURATION_SHEET_NAME = "GCSN";
 	public static String DISTRIBUTOR_COLUMN_NAME = "D";
@@ -34,17 +37,21 @@ public class MapperFactory {
 		return null;
 	}
 	
-	public static Mapper getMapperFromWorkbook(HSSFWorkbook configuration){
+	public static Mapper getMapperFromWorkbook(HSSFWorkbook configuration) throws BadHeadersException{
 		Mapper result = new Mapper();
 		
 		HSSFSheet generalConfiguration = configuration.getSheet(GENERAL_CONFIGURATION_SHEET_NAME);
+		
+		if(generalConfiguration==null){
+			throw new BadHeadersException();
+		}
         
         Integer distributorsIndex = findHeaderIndex(generalConfiguration,DISTRIBUTOR_COLUMN_NAME);
         Integer suffixIndex = findHeaderIndex(generalConfiguration,SUFFIX_COLUMN_NAME);
         Integer externalColumnNameIndex = findHeaderIndex(generalConfiguration,EXTERNAL_CODE_COLUMN_NAME);
 		
         if(distributorsIndex==null||suffixIndex==null||externalColumnNameIndex==null){
-        	throw new IllegalStateException("Bad headers");
+        	throw new BadHeadersException();
         }
         
         Iterator<Row> rowIterator = generalConfiguration.iterator();
@@ -65,13 +72,13 @@ public class MapperFactory {
             
             Cell suffixCell = row.getCell(suffixIndex);
             if(suffixCell==null){
-            	throw new IllegalStateException("Bad headers");
+            	throw new BadHeadersException();
             }
             result.getConfigurations().get(distributorCell.getStringCellValue()).setSuffix(suffixCell.getStringCellValue());
             
             Cell externalColumnNameCell = row.getCell(externalColumnNameIndex);
             if(externalColumnNameCell==null){
-            	throw new IllegalStateException("Bad headers");
+            	throw new BadHeadersException();
             }
             result.getConfigurations().get(distributorCell.getStringCellValue()).setExternalColumnName(externalColumnNameCell.getStringCellValue());
             

@@ -20,6 +20,8 @@ import org.junit.Test;
 import com.clomagno.codemapper.mapper.Configuration;
 import com.clomagno.codemapper.mapper.Mapper;
 import com.clomagno.codemapper.mapper.MapperFactory;
+import com.clomagno.codemapper.mapper.exceptions.BadHeadersException;
+import com.clomagno.codemapper.mapper.exceptions.MapperException;
 
 public class TestCase_MapperFactory {
 	@Before
@@ -28,7 +30,7 @@ public class TestCase_MapperFactory {
 	}
 	
 	@Test
-	public void testGetMapperFromFile() throws IOException{
+	public void testGetMapperFromFile() throws IOException, MapperException{
 		HSSFWorkbook workbookConfiguration = new HSSFWorkbook(TestCase_MapperFactory.class.getResourceAsStream("mapping1.xls"));
 		Mapper mapper = MapperFactory.getMapperFromWorkbook(workbookConfiguration);
         
@@ -97,7 +99,7 @@ public class TestCase_MapperFactory {
 	}
 
 	@Test
-	public void testGetMapperFromWorkbook() {
+	public void testGetMapperFromWorkbook() throws MapperException {
 		String generalConfiguration[][]={
         		{MapperFactory.DISTRIBUTOR_COLUMN_NAME,MapperFactory.SUFFIX_COLUMN_NAME,MapperFactory.EXTERNAL_CODE_COLUMN_NAME},
         		{"distributor1","-d1","code-d1"}

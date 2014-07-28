@@ -14,13 +14,15 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
 public class DistributorSelectionWizardPage extends WizardPage {
+	private static final String DESCRIPTION = "Selecciona el distribuidor";
+	
 	private PendingMap sharedData;
 	
 	private List list;
 
 	public DistributorSelectionWizardPage(PendingMap sharedData){
 		super("Configuration file selection");
-		
+		this.setDescription(DESCRIPTION);
 		this.sharedData = sharedData;
 	}
 	public void createControl(Composite parent) {
