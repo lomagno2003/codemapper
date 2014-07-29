@@ -51,9 +51,7 @@ public class HSSFMapper extends Mapper{
         while (rowIterator.hasNext()) 
         {
             IRow row = rowIterator.next();
-            
-            System.out.println(row.getCell(0).toString());
-            
+                        
             if(distributorConfiguration.getMappings().containsKey(row.getCell(codeColumnIndex).toString())){
             	
                 IRow newRow = resultSheet.createRow(rowNumber);
@@ -73,7 +71,6 @@ public class HSSFMapper extends Mapper{
 	                columnIndex++;
 	            }
             } else {
-            	System.out.println("Test");
             	unmappedCodes.add(row);
             }
             
