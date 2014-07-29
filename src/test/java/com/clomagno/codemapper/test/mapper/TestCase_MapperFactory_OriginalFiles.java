@@ -50,6 +50,7 @@ public class TestCase_MapperFactory_OriginalFiles {
 				}
 				throw new NullPointerException();
 			}
+			
 			rowNumber++;
 		}
 		throw new NullPointerException();
@@ -67,13 +68,13 @@ public class TestCase_MapperFactory_OriginalFiles {
 
 		IWorkbook workbook = new DBFWorkbookFacade(inputStream);
 
-		assertEquals("8.9", getCell("articulos", 17, 4, workbook));
+		assertEquals(" 5065", getCell("articulos", 89, 5, workbook));
 
-		assertEquals("857632B",
-				getCell("articulos", 37551, 6, workbook));
+		assertEquals("PROTECTOR SUP.CORREA DIST.(ORIG) GOL/POLO/CADDY **",
+				getCell("articulos", 150, 1, workbook));
 
-		assertEquals("08-May-2007".toUpperCase(),
-				getCell("articulos", 30381, 14, workbook).toUpperCase());
+		assertEquals("123.48".toUpperCase(),
+				getCell("articulos", 11511, 3, workbook).toUpperCase());
 	}
 
 	@Test

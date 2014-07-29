@@ -1,5 +1,7 @@
 package com.clomagno.codemapper.mapper.facades.dbf;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,18 +24,49 @@ import com.clomagno.codemapper.mapper.exceptions.MapperException;
 import com.clomagno.codemapper.test.mapper.TestCase_MapperFactory_OriginalFiles;
 
 public class DBFWorkbookFacade implements IWorkbook {
-	private DbfReader reader;
+	private InputStream inputStream;
 
 	public DBFWorkbookFacade(InputStream inputStream) {
-		reader = new DbfReader(inputStream);
+		this.inputStream = inputStream;
 	}
 
 	public Iterator<ISheet> iterator() {
-		return new DBFSheetIterator(reader);
+		try {
+			//Copy of the InputStream
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			byte[] buf = new byte[1024];
+			int n = 0;
+			
+			while ((n = inputStream.read(buf)) >= 0)
+			    baos.write(buf, 0, n);
+
+			inputStream = new ByteArrayInputStream(baos.toByteArray());
+
+			return new DBFSheetIterator(new ByteArrayInputStream(baos.toByteArray()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public ISheet getSheet(String distributor) {
-		return new DBFSheetFacade(reader);
+		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			byte[] buf = new byte[1024];
+			int n = 0;
+			
+			while ((n = inputStream.read(buf)) >= 0)
+			    baos.write(buf, 0, n);
+			
+			inputStream = new ByteArrayInputStream(baos.toByteArray());
+			
+			return new DBFSheetFacade(new ByteArrayInputStream(baos.toByteArray()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	public void write(OutputStream outputStream) throws IOException {

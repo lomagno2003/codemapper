@@ -22,8 +22,7 @@ public class DBFRowFacade implements IRow {
 	}
 
 	public ICell getCell(Integer cellIndex) {
-		// TODO Auto-generated method stub
-		return null;
+		return new DBFCellFacade(cells[cellIndex]);
 	}
 
 }

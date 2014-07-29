@@ -1,5 +1,6 @@
 package com.clomagno.codemapper.mapper.facades.dbf;
 
+import java.io.InputStream;
 import java.util.Iterator;
 
 import org.jamel.dbf.DbfReader;
@@ -7,12 +8,12 @@ import org.jamel.dbf.DbfReader;
 import com.clomagno.codemapper.mapper.ISheet;
 
 public class DBFSheetIterator implements Iterator<ISheet> {
-	private DbfReader reader;
+	private InputStream inputStream;
 	
 	private Integer sheetIndex;
 
-	public DBFSheetIterator(DbfReader reader) {
-		this.reader = reader;
+	public DBFSheetIterator(InputStream inputStream) {
+		this.inputStream = inputStream;
 		this.sheetIndex = 0;
 	}
 
@@ -22,7 +23,7 @@ public class DBFSheetIterator implements Iterator<ISheet> {
 
 	public ISheet next() {
 		sheetIndex++;
-		return new DBFSheetFacade(reader);
+		return new DBFSheetFacade(inputStream);
 	}
 
 	public void remove() {
