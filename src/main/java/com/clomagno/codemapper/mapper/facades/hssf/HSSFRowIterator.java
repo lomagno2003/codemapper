@@ -18,7 +18,7 @@ public class HSSFRowIterator implements Iterator<IRow>{
 	}
 	
 	public boolean hasNext() {
-		return actualRow < sheet.getLastRowNum();
+		return actualRow <= sheet.getLastRowNum();
 	}
 
 	public IRow next() {
