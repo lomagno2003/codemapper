@@ -71,8 +71,11 @@ public class OutputFileWizardPage extends WizardPage {
 				Display display = Display.getCurrent();
 			    Shell shell = new Shell(display);
 				FileDialog fileDialog = new FileDialog(shell, SWT.SAVE);
-				OutputFileWizardPage.this.text.setText(fileDialog.open());
-				OutputFileWizardPage.this.getWizard().getContainer().updateButtons();
+				String fileName = fileDialog.open();
+				if(fileName != null){
+					OutputFileWizardPage.this.text.setText(fileName);
+					OutputFileWizardPage.this.getWizard().getContainer().updateButtons();
+				}
 			}
 		});
 		fd_text.right = new FormAttachment(100, -102);
