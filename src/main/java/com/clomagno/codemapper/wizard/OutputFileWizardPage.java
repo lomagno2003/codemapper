@@ -73,6 +73,7 @@ public class OutputFileWizardPage extends WizardPage {
 				FileDialog fileDialog = new FileDialog(shell, SWT.SAVE);
 				fileDialog.setFilterNames(new String[]{"Archivos xls", "Archivos xlsx"});
 				fileDialog.setFilterExtensions(new String[]{"*.xls","*.xlsx"});
+				fileDialog.setOverwrite(true);
 				String fileName = fileDialog.open();
 				if(fileName != null){
 					OutputFileWizardPage.this.text.setText(fileName);
