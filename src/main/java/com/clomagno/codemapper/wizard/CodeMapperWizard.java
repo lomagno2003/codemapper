@@ -28,10 +28,12 @@ public class CodeMapperWizard extends Wizard {
 	protected ProductsListFileWizardPage page2;
 	protected DistributorSelectionWizardPage page3;
 	protected OutputFileWizardPage page4;
-	protected FinishWizardPage page5;
+	protected PreFinishWizardPage page5;
+	protected FinishWizardPage page6;
 
 	public CodeMapperWizard() {
 		super();
+
 		setWindowTitle("Code Mapper");
 
 		pendingMap = new PendingMap();
@@ -40,7 +42,8 @@ public class CodeMapperWizard extends Wizard {
 		page2 = new ProductsListFileWizardPage(pendingMap);
 		page3 = new DistributorSelectionWizardPage(pendingMap);
 		page4 = new OutputFileWizardPage(pendingMap);
-		page5 = new FinishWizardPage(pendingMap);
+		page5 = new PreFinishWizardPage(pendingMap);
+		page6 = new FinishWizardPage(pendingMap);
 	}
 
 	public PendingMap getPendingMap() {
@@ -54,6 +57,8 @@ public class CodeMapperWizard extends Wizard {
 		this.addPage(page3);
 		this.addPage(page4);
 		this.addPage(page5);
+		this.addPage(page6);
+		
 	}
 
 	@Override
@@ -68,7 +73,7 @@ public class CodeMapperWizard extends Wizard {
 		WizardDialog wizardDialog = new WizardDialog(shell, wizard);
 		wizardDialog.create();
 		if (wizardDialog.open() == Window.OK) {
-			try {
+			/*try {
 				((CodeMapperWizard) wizard).getPendingMap().execute();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -81,7 +86,7 @@ public class CodeMapperWizard extends Wizard {
 					String unmappedFileName = ((CodeMapperWizard)wizard).getPendingMap().getOutputFile().getAbsoluteFile().toString();
 					unmappedFileName = unmappedFileName.substring(0, unmappedFileName.indexOf(".")) + "_unmapped.xls";
 
-					/*Display display2 = new Display();
+					Display display2 = new Display();
 					Shell shell2 = display.getActiveShell();
 					MessageBox dialog = new MessageBox(shell2, SWT.ICON_WARNING
 							| SWT.OK);
@@ -90,7 +95,7 @@ public class CodeMapperWizard extends Wizard {
 							unmappedFileName);
 												dialog.open();
 
-					*/
+					
 					
 					FileWriter f0 = new FileWriter(unmappedFileName);
 	
@@ -110,7 +115,7 @@ public class CodeMapperWizard extends Wizard {
 			} catch (MapperException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 		}
 	}
 
