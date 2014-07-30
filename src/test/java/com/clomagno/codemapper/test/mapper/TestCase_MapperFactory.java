@@ -35,9 +35,9 @@ public class TestCase_MapperFactory {
         
 		String distributor1Expected[][]={
         		{HSSFMapper.INTERNAL_CODE_COLUMN_NAME,"ec1","price","Product"},
-        		{"c1_d1","c10","100.0","Pera"},
-        		{"c2_d1","c11","100.0","Manzana"},
-        		{"c3_d1","c12","100.0","Banana"}
+        		{"c1_d1","c10","100","Pera"},
+        		{"c2_d1","c11","100","Manzana"},
+        		{"c3_d1","c12","100","Banana"}
         		};
         
         TestCase_Mapper.testSheet(mappedSheet, distributor1Expected);

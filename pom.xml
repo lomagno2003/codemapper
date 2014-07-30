@@ -30,8 +30,8 @@
 		<!-- SWT -->
 		<dependency>
 			<groupId>org.eclipse.swt</groupId>
-			<artifactId>org.eclipse.swt.gtk.linux.x86_64</artifactId>
-			<version>3.7.2</version>
+			<artifactId>${swt-artifact}</artifactId>
+			<version>${swt-version}</version>
 		</dependency>
 		<!-- JFace dependencies -->
 		<dependency>
@@ -54,6 +54,34 @@
 		</dependency>
 	</dependencies>
 
+	<profiles>
+		<profile>
+			<id>linux-profile</id>
+			<properties>
+				<swt-artifact>org.eclipse.swt.gtk.linux.x86_64</swt-artifact>
+				<swt-version>4.4</swt-version>
+			</properties>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+		</profile>
+
+		<profile>
+			<id>windows-profile</id>
+			<properties>
+				<swt-artifact>org.eclipse.swt.win32.win32.x86_64</swt-artifact>
+				<swt-version>4.4</swt-version>
+			</properties>
+			<activation>
+				<os>
+					<family>windows</family>
+				</os>
+			</activation>
+		</profile>
+	</profiles>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -65,6 +93,38 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>copy-dependencies</id>
+                    <phase>prepare-package</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        <overWriteReleases>false</overWriteReleases>
+                        <overWriteSnapshots>false</overWriteSnapshots>
+                        <overWriteIfNewer>true</overWriteIfNewer>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <classpathPrefix>lib/</classpathPrefix>
+                        <mainClass>com.clomagno.codemapper.wizard.CodeMapperWizard</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
 		</plugins>
 	</build>
 </project>

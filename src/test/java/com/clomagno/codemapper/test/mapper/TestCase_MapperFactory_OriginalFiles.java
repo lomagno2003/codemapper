@@ -67,7 +67,7 @@ public class TestCase_MapperFactory_OriginalFiles {
 		assertEquals("857632B",
 				getCell("articulos", 37551, 6, externalWorkbook));
 
-		assertEquals("08-May-2007".toUpperCase(),
+		assertEquals("08/05/2007".toUpperCase(),
 				getCell("articulos", 30381, 14, externalWorkbook).toUpperCase());
 	}
 }

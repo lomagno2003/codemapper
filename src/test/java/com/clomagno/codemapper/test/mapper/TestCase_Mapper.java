@@ -76,9 +76,9 @@ public class TestCase_Mapper {
         
         String expected[][]={
         		{HSSFMapper.INTERNAL_CODE_COLUMN_NAME,"ExternalCode","Price","Product"},
-        		{"1-sufix","10","100.0","Pera"},
-        		{"2-sufix","11","100.0","Manzana"},
-        		{"3-sufix","12","100.0","Banana"}
+        		{"1-sufix","10","100","Pera"},
+        		{"2-sufix","11","100","Manzana"},
+        		{"3-sufix","12","100","Banana"}
         		};
         
         testSheet(mappedSheet, expected);
