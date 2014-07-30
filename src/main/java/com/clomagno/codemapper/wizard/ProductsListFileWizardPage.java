@@ -24,8 +24,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import com.clomagno.codemapper.mapper.facades.hssf.HSSFWorkbookFacade;
-import com.clomagno.codemapper.mapper.impls.HSSFMapper;
-import com.clomagno.codemapper.mapper.impls.MapperFactory;
 
 public class ProductsListFileWizardPage extends WizardPage {
 	private static final String DESCRIPTION="Selecciona el archivo de articulos";

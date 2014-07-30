@@ -7,11 +7,9 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.jamel.dbf.DbfReader;
 
 import com.clomagno.codemapper.mapper.Configuration;
 import com.clomagno.codemapper.mapper.exceptions.BadHeadersException;
-import com.clomagno.codemapper.mapper.exceptions.MapperException;
 
 public class MapperFactory {
 	public static String GENERAL_CONFIGURATION_SHEET_NAME = "GCSN";

@@ -3,7 +3,6 @@ package com.clomagno.codemapper.mapper.facades.hssf;
 import java.util.Iterator;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.ss.usermodel.Row;
 
 import com.clomagno.codemapper.mapper.IRow;
 

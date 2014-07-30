@@ -2,8 +2,6 @@ package com.clomagno.codemapper.mapper.exceptions;
 
 import java.util.List;
 
-import org.apache.poi.ss.usermodel.Row;
-
 import com.clomagno.codemapper.mapper.IRow;
 import com.clomagno.codemapper.mapper.IWorkbook;
 

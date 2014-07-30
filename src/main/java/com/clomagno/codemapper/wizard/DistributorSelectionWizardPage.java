@@ -1,8 +1,5 @@
 package com.clomagno.codemapper.wizard;
 
-import java.io.FileInputStream;
-
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;

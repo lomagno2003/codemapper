@@ -1,7 +1,6 @@
 package com.clomagno.codemapper.wizard;
 
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import org.eclipse.jface.wizard.WizardPage;
@@ -10,7 +9,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
-import com.clomagno.codemapper.mapper.IRow;
 import com.clomagno.codemapper.mapper.exceptions.MappedAlreadyExecutedException;
 import com.clomagno.codemapper.mapper.exceptions.MapperException;
 import com.clomagno.codemapper.mapper.exceptions.UnmappedCodesException;

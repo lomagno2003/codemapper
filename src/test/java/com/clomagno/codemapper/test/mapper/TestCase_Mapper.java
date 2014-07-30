@@ -3,12 +3,10 @@ package com.clomagno.codemapper.test.mapper;
 import static org.junit.Assert.*;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.junit.Before;
 import org.junit.Test;

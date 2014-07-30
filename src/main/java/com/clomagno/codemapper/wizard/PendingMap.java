@@ -1,13 +1,10 @@
 package com.clomagno.codemapper.wizard;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.clomagno.codemapper.mapper.IRow;
 import com.clomagno.codemapper.mapper.IWorkbook;
@@ -15,8 +12,6 @@ import com.clomagno.codemapper.mapper.Mapper;
 import com.clomagno.codemapper.mapper.exceptions.MappedAlreadyExecutedException;
 import com.clomagno.codemapper.mapper.exceptions.MapperException;
 import com.clomagno.codemapper.mapper.exceptions.UnmappedCodesException;
-import com.clomagno.codemapper.mapper.impls.HSSFMapper;
-import com.clomagno.codemapper.mapper.impls.MapperFactory;
 
 public class PendingMap {
 	private Mapper mapper;

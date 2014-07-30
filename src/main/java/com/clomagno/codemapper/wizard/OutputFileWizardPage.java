@@ -1,11 +1,8 @@
 package com.clomagno.codemapper.wizard;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
@@ -20,12 +17,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-
-import com.clomagno.codemapper.mapper.impls.HSSFMapper;
-import com.clomagno.codemapper.mapper.impls.MapperFactory;
 
 public class OutputFileWizardPage extends WizardPage {
 	private static final String DESCRIPTION="Selecciona el archivo de salida";

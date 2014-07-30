@@ -1,26 +1,10 @@
 package com.clomagno.codemapper.wizard;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import javax.swing.JDialog;
-
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-
-import com.clomagno.codemapper.mapper.IRow;
-import com.clomagno.codemapper.mapper.IWorkbook;
-import com.clomagno.codemapper.mapper.exceptions.MapperException;
-import com.clomagno.codemapper.mapper.exceptions.UnmappedCodesException;
-import com.clomagno.codemapper.mapper.facades.hssf.HSSFWorkbookFacade;
 
 public class CodeMapperWizard extends Wizard {
 	private PendingMap pendingMap;

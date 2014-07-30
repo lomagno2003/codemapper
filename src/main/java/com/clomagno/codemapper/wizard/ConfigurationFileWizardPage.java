@@ -8,7 +8,6 @@ import java.io.IOException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
@@ -25,7 +24,6 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 
 import com.clomagno.codemapper.mapper.exceptions.BadHeadersException;
-import com.clomagno.codemapper.mapper.exceptions.MapperException;
 import com.clomagno.codemapper.mapper.facades.hssf.HSSFWorkbookFacade;
 import com.clomagno.codemapper.mapper.impls.HSSFMapper;
 import com.clomagno.codemapper.mapper.impls.MapperFactory;

@@ -3,8 +3,6 @@ package com.clomagno.codemapper.mapper.facades.dbf;
 import java.io.InputStream;
 import java.util.Iterator;
 
-import org.jamel.dbf.DbfReader;
-
 import com.clomagno.codemapper.mapper.ISheet;
 
 public class DBFSheetIterator implements Iterator<ISheet> {

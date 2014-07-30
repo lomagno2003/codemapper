@@ -2,38 +2,17 @@ package com.clomagno.codemapper.test.mapper;
 
 import static org.junit.Assert.*;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.jamel.dbf.processor.DbfProcessor;
-import org.jamel.dbf.processor.DbfRowMapper;
-import org.jamel.dbf.processor.DbfRowProcessor;
-import org.jamel.dbf.utils.DbfUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.clomagno.codemapper.mapper.Configuration;
 import com.clomagno.codemapper.mapper.ICell;
 import com.clomagno.codemapper.mapper.IRow;
-import com.clomagno.codemapper.mapper.ISheet;
 import com.clomagno.codemapper.mapper.IWorkbook;
 import com.clomagno.codemapper.mapper.facades.dbf.DBFWorkbookFacade;
 import com.clomagno.codemapper.mapper.facades.hssf.HSSFWorkbookFacade;
-import com.clomagno.codemapper.mapper.impls.HSSFMapper;
-import com.clomagno.codemapper.mapper.impls.MapperFactory;
 
 public class TestCase_MapperFactory_OriginalFiles {
 	private String getCell(String sheet, Integer rowIndex, Integer columnIndex,

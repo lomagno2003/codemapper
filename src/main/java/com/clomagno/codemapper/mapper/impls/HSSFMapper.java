@@ -1,15 +1,10 @@
 package com.clomagno.codemapper.mapper.impls;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 
 import com.clomagno.codemapper.mapper.Configuration;
 import com.clomagno.codemapper.mapper.ICell;
