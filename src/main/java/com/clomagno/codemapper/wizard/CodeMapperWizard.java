@@ -63,7 +63,7 @@ public class CodeMapperWizard extends Wizard {
 
 	@Override
 	public boolean performFinish() {
-		return this.pendingMap.canExecute();
+		return this.pendingMap.isExecuted();
 	}
 
 	public static void main(String[] args) {
@@ -73,49 +73,7 @@ public class CodeMapperWizard extends Wizard {
 		WizardDialog wizardDialog = new WizardDialog(shell, wizard);
 		wizardDialog.create();
 		if (wizardDialog.open() == Window.OK) {
-			/*try {
-				((CodeMapperWizard) wizard).getPendingMap().execute();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (UnmappedCodesException e) {
-				try {
-					String unmappedFileName = ((CodeMapperWizard)wizard).getPendingMap().getOutputFile().getAbsoluteFile().toString();
-					unmappedFileName = unmappedFileName.substring(0, unmappedFileName.indexOf(".")) + "_unmapped.xls";
-
-					Display display2 = new Display();
-					Shell shell2 = display.getActiveShell();
-					MessageBox dialog = new MessageBox(shell2, SWT.ICON_WARNING
-							| SWT.OK);
-					dialog.setText("Algunos codigos no pudieron ser mapeados");
-					dialog.setMessage("Algunos de los codigos no pudieron ser mapeados, los mismos se listan en " + 
-							unmappedFileName);
-												dialog.open();
-
-					
-					
-					FileWriter f0 = new FileWriter(unmappedFileName);
-	
-					String newLine = System.getProperty("line.separator");
-	
-					for(IRow row:e.getUnmappedCodes())
-					{
-					    f0.write(row.getCell(0) + newLine);
-					}
-				
-					f0.close();
-					
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			} catch (MapperException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}*/
+			
 		}
 	}
 

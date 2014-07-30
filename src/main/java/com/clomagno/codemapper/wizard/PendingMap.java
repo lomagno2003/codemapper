@@ -10,6 +10,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.clomagno.codemapper.mapper.IWorkbook;
 import com.clomagno.codemapper.mapper.Mapper;
+import com.clomagno.codemapper.mapper.exceptions.MappedAlreadyExecutedException;
 import com.clomagno.codemapper.mapper.exceptions.MapperException;
 import com.clomagno.codemapper.mapper.impls.HSSFMapper;
 import com.clomagno.codemapper.mapper.impls.MapperFactory;
@@ -21,6 +22,12 @@ public class PendingMap {
 	private File outputFile;
 
 	private String distributor;
+	
+	private Boolean executed = false;
+	
+	public Boolean isExecuted(){
+		return executed;
+	}
 
 	public Mapper getMapper() {
 		return mapper;
@@ -68,12 +75,16 @@ public class PendingMap {
 	}
 
 	public void execute() throws FileNotFoundException, IOException,
-			MapperException {
+			MapperException, MappedAlreadyExecutedException {
+		if(!executed){
 		IWorkbook newWorkbook = mapper.doMap(distributor, productsWorkbook);
 
 		FileOutputStream out = new FileOutputStream(new File(
 				outputFile.getAbsolutePath()));
 		newWorkbook.write(out);
 		out.close();
+		} else {
+			throw new MappedAlreadyExecutedException();
+		}
 	}
 }

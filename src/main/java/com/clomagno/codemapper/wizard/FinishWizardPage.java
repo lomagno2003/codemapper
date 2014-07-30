@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 import com.clomagno.codemapper.mapper.IRow;
+import com.clomagno.codemapper.mapper.exceptions.MappedAlreadyExecutedException;
 import com.clomagno.codemapper.mapper.exceptions.MapperException;
 import com.clomagno.codemapper.mapper.exceptions.UnmappedCodesException;
 
@@ -26,6 +27,11 @@ public class FinishWizardPage extends WizardPage {
 	public void createControl(Composite parent) {
 		Composite container = new Composite(parent, SWT.NULL);
 		setControl(container);
+	}
+	
+	@Override
+	public WizardPage getPreviousPage(){
+		return null;
 	}
 	
 	public void setVisible(boolean visible){
@@ -68,6 +74,9 @@ public class FinishWizardPage extends WizardPage {
 					e1.printStackTrace();
 				}
 			} catch (MapperException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MappedAlreadyExecutedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
