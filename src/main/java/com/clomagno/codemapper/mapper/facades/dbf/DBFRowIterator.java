@@ -9,6 +9,8 @@ import com.clomagno.codemapper.mapper.IRow;
 public class DBFRowIterator implements Iterator<IRow> {
 	private DbfReader reader;
 	
+	private Boolean iteratorOnHeader = true;
+	
 	private Object[] auxRecord;
 
 	public DBFRowIterator(DbfReader reader) {
@@ -22,8 +24,20 @@ public class DBFRowIterator implements Iterator<IRow> {
 	}
 
 	public IRow next() {
-		Object[] result = auxRecord;
-		auxRecord=reader.nextRecord();
+		Object[] result = null;
+		
+		if(iteratorOnHeader){
+			iteratorOnHeader = false;
+			//Generate header row
+			result = new Object[reader.getHeader().getFieldsCount()];
+			for(int i=0;i<reader.getHeader().getFieldsCount();i++){
+				result[i] = reader.getHeader().getField(i).getName();
+			}
+		} else {
+			result = auxRecord;
+			auxRecord=reader.nextRecord();
+		}
+		
 		return new DBFRowFacade(result);
 	}
 

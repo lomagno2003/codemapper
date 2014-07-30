@@ -44,8 +44,7 @@ public class DBFSheetFacade implements ISheet {
 	}
 
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "DBFSheet";
 	}
 
 }

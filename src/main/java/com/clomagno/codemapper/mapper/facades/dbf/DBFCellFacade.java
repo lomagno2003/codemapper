@@ -20,7 +20,11 @@ public class DBFCellFacade implements ICell {
 		try{
 			return new String(DbfUtils.trimLeftSpaces((byte[])content));
 		} catch (ClassCastException e){
-			return ((Double) content).toString();
+			try{
+				return ((Double) content).toString();
+			} catch (ClassCastException e2){
+				return content.toString();
+			}
 		}
 	}
 

@@ -23,6 +23,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import com.clomagno.codemapper.mapper.IWorkbook;
+import com.clomagno.codemapper.mapper.facades.dbf.DBFWorkbookFacade;
 import com.clomagno.codemapper.mapper.facades.hssf.HSSFWorkbookFacade;
 
 public class ProductsListFileWizardPage extends WizardPage {
@@ -71,7 +73,7 @@ public class ProductsListFileWizardPage extends WizardPage {
 			    Shell shell = new Shell(display);
 				FileDialog fileDialog = new FileDialog(shell, SWT.OPEN);
 				fileDialog.setFilterNames(new String[]{"Archivos xls", "Archivos xlsx", "Archivos dbf"});
-				fileDialog.setFilterExtensions(new String[]{"*.xls","*.xlsx", "*.dbf"});
+				fileDialog.setFilterExtensions(new String[]{"*.xls","*.xlsx", "*.DBF"});
 				String fileName = fileDialog.open();
 				if(fileName != null){
 					ProductsListFileWizardPage.this.text.setText(fileName);
@@ -93,11 +95,19 @@ public class ProductsListFileWizardPage extends WizardPage {
 		if(!text.getText().equals("")){
 			try {
 				File productsFile = new File(text.getText());
-	
-				HSSFWorkbook productsWorkbook = new HSSFWorkbook(new FileInputStream(
-						productsFile));
 				
-				this.sharedData.setProductsWorkbook(new HSSFWorkbookFacade(productsWorkbook));
+				IWorkbook productsWorkbook = null;
+				if(productsFile.getAbsoluteFile().toString().contains(".DBF")){
+					productsWorkbook = new DBFWorkbookFacade(new FileInputStream(
+							productsFile));
+				} else {
+					productsWorkbook = new HSSFWorkbookFacade(new HSSFWorkbook(new FileInputStream(
+							productsFile)));
+				}
+	
+				
+				
+				this.sharedData.setProductsWorkbook(productsWorkbook);
 				
 				this.setDescription(DESCRIPTION);
 				this.setErrorMessage(null);
@@ -105,6 +115,7 @@ public class ProductsListFileWizardPage extends WizardPage {
 			} catch (FileNotFoundException e) {
 				this.setErrorMessage("No se pudo encontrar el archivo de articulos ingresado, comprueba que la ruta del archivo sea correcta");
 			} catch (IOException e) {
+				e.printStackTrace();
 				this.setErrorMessage("Hubo un error al intentar leer el archivo, asegurate que sea del tipo .xls o .xlsx");
 			}
 		}

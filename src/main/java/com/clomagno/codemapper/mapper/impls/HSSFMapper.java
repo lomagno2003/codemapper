@@ -118,19 +118,19 @@ public class HSSFMapper extends Mapper{
 			
             Iterator<ICell> cellIterator = headers.iterator();
             codeColumnIndex = 0;
-            
+
             while (cellIterator.hasNext()) 
             {
                 ICell cell = cellIterator.next();
-                
+
                 if(cell.toString().equals(distributorConfiguration.getExternalColumnName())){
-                	break;
+                	return codeColumnIndex++;
                 };
                 
                 codeColumnIndex++;
             }
 		}
 		
-		return codeColumnIndex;
+		return null;
 	}
 }
