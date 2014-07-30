@@ -19,24 +19,25 @@ public class FinishWizardPage extends WizardPage {
 	private static final String DESCRIPTION = "Generacion finalizada";
 	private PendingMap sharedData;
 
-	public FinishWizardPage(PendingMap sharedData){
+	public FinishWizardPage(PendingMap sharedData) {
 		super("");
 		this.setDescription(DESCRIPTION);
 		this.sharedData = sharedData;
 	}
+
 	public void createControl(Composite parent) {
 		Composite container = new Composite(parent, SWT.NULL);
 		setControl(container);
 	}
-	
+
 	@Override
-	public WizardPage getPreviousPage(){
+	public WizardPage getPreviousPage() {
 		return null;
 	}
-	
-	public void setVisible(boolean visible){
+
+	public void setVisible(boolean visible) {
 		super.setVisible(visible);
-		if(visible){
+		if (visible) {
 			try {
 				this.sharedData.execute();
 			} catch (FileNotFoundException e) {
@@ -46,33 +47,18 @@ public class FinishWizardPage extends WizardPage {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (UnmappedCodesException e) {
-				try {
-					String unmappedFileName = this.sharedData.getOutputFile().getAbsoluteFile().toString();
-					unmappedFileName = unmappedFileName.substring(0, unmappedFileName.indexOf(".")) + "_unmapped.xls";
-					
-					Shell shell = this.getShell();
-					MessageBox dialog = new MessageBox(shell, SWT.ICON_WARNING
-							| SWT.OK);
-					dialog.setText("Algunos codigos no pudieron ser mapeados");
-					dialog.setMessage("Algunos de los codigos no pudieron ser mapeados, los mismos se listan en " + 
-							unmappedFileName);
-												dialog.open();
-					
-					FileWriter f0 = new FileWriter(unmappedFileName);
-	
-					String newLine = System.getProperty("line.separator");
-	
-					for(IRow row:e.getUnmappedCodes())
-					{
-					    f0.write(row.getCell(0) + newLine);
-					}
-				
-					f0.close();
-					
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				String unmappedFileName = this.sharedData.getOutputFile()
+						.getAbsoluteFile().toString();
+				unmappedFileName = unmappedFileName.substring(0,
+						unmappedFileName.indexOf(".")) + "_unmapped.xls";
+
+				Shell shell = this.getShell();
+				MessageBox dialog = new MessageBox(shell, SWT.ICON_WARNING
+						| SWT.OK);
+				dialog.setText("Algunos codigos no pudieron ser mapeados");
+				dialog.setMessage("Algunos de los codigos no pudieron ser mapeados, los mismos se listan en "
+						+ unmappedFileName);
+				dialog.open();
 			} catch (MapperException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -80,6 +66,8 @@ public class FinishWizardPage extends WizardPage {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+			this.getWizard().getContainer().updateButtons();
 		}
 	}
 

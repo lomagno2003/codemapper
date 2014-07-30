@@ -72,6 +72,8 @@ public class ProductsListFileWizardPage extends WizardPage {
 				Display display = Display.getCurrent();
 			    Shell shell = new Shell(display);
 				FileDialog fileDialog = new FileDialog(shell, SWT.OPEN);
+				fileDialog.setFilterNames(new String[]{"Archivos xls", "Archivos xlsx", "Archivos dbf"});
+				fileDialog.setFilterExtensions(new String[]{"*.xls","*.xlsx", "*.dbf"});
 				String fileName = fileDialog.open();
 				if(fileName != null){
 					ProductsListFileWizardPage.this.text.setText(fileName);

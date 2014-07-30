@@ -77,11 +77,13 @@ public class HSSFMapper extends Mapper{
             rowNumber++;
         }
         
+        IWorkbook workbookResult = new HSSFWorkbookFacade(result);
+        
         if(!unmappedCodes.isEmpty()){
-        	throw new UnmappedCodesException(unmappedCodes);
+        	throw new UnmappedCodesException(workbookResult, unmappedCodes);
         }
         
-		return new HSSFWorkbookFacade(result);
+		return workbookResult;
 	}
 	
 	private void copyFirstRow(ISheet externalSheet, ISheet resultSheet) {

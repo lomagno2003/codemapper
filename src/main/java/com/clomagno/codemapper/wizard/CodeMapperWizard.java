@@ -62,9 +62,9 @@ public class CodeMapperWizard extends Wizard {
 	}
 
 	@Override
-	public boolean performFinish() {
+	public boolean canFinish() {
 		return this.pendingMap.isExecuted();
-	}
+	};
 
 	public static void main(String[] args) {
 		Display display = new Display();
@@ -75,6 +75,11 @@ public class CodeMapperWizard extends Wizard {
 		if (wizardDialog.open() == Window.OK) {
 			
 		}
+	}
+
+	@Override
+	public boolean performFinish() {
+		return true;
 	}
 
 }

@@ -4,14 +4,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import com.clomagno.codemapper.mapper.IRow;
 import com.clomagno.codemapper.mapper.IWorkbook;
 import com.clomagno.codemapper.mapper.Mapper;
 import com.clomagno.codemapper.mapper.exceptions.MappedAlreadyExecutedException;
 import com.clomagno.codemapper.mapper.exceptions.MapperException;
+import com.clomagno.codemapper.mapper.exceptions.UnmappedCodesException;
 import com.clomagno.codemapper.mapper.impls.HSSFMapper;
 import com.clomagno.codemapper.mapper.impls.MapperFactory;
 
@@ -77,12 +80,42 @@ public class PendingMap {
 	public void execute() throws FileNotFoundException, IOException,
 			MapperException, MappedAlreadyExecutedException {
 		if(!executed){
-		IWorkbook newWorkbook = mapper.doMap(distributor, productsWorkbook);
-
-		FileOutputStream out = new FileOutputStream(new File(
-				outputFile.getAbsolutePath()));
-		newWorkbook.write(out);
-		out.close();
+			
+			
+			IWorkbook newWorkbook = null;
+			try{
+				newWorkbook = mapper.doMap(distributor, productsWorkbook);
+			} catch (UnmappedCodesException e){
+				//Save the mapped codes
+				FileOutputStream out = new FileOutputStream(new File(
+						outputFile.getAbsolutePath()));
+				e.getWorkbook().write(out);
+				out.close();
+				
+				//Save the unmapped codes
+				String unmappedFileName = getOutputFile().getAbsoluteFile().toString();
+				unmappedFileName = unmappedFileName.substring(0, unmappedFileName.indexOf(".")) + "_unmapped.xls";
+				
+				FileWriter f0 = new FileWriter(unmappedFileName);
+				String newLine = System.getProperty("line.separator");
+				for(IRow row:e.getUnmappedCodes())
+				{
+				    f0.write(row.getCell(0) + newLine);
+				}
+			
+				f0.close();
+				
+				executed = true;
+				
+				throw e;
+			}
+			
+			FileOutputStream out = new FileOutputStream(new File(
+					outputFile.getAbsolutePath()));
+			newWorkbook.write(out);
+			out.close();
+			
+			executed = true;
 		} else {
 			throw new MappedAlreadyExecutedException();
 		}
