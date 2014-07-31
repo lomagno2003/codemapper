@@ -96,7 +96,6 @@ public class MapperFactory {
 					.setExternalColumnName(
 							externalColumnNameCell.getStringCellValue());
 
-			System.out.println("Dist" + distributorCell.getStringCellValue());
 			configureDistributorMappings(
 					result.getConfigurations().get(
 							distributorCell.getStringCellValue()),
@@ -121,9 +120,6 @@ public class MapperFactory {
 
 			Cell internalCodeCell = row.getCell(internalCodeIndex);
 			Cell externalCodeCell = row.getCell(externalCodeIndex);
-
-			System.out.println(internalCodeCell);
-			System.out.println(externalCodeCell);
 			
 			configuration.getMappings().put(externalCodeCell.toString(),
 					internalCodeCell.toString());
