@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import com.clomagno.codemapper.mapper.IRow;
+import com.clomagno.codemapper.mapper.ISheet;
 import com.clomagno.codemapper.mapper.IWorkbook;
 import com.clomagno.codemapper.mapper.Mapper;
 import com.clomagno.codemapper.mapper.exceptions.MappedAlreadyExecutedException;
@@ -16,16 +17,31 @@ import com.clomagno.codemapper.mapper.exceptions.UnmappedCodesException;
 public class PendingMap {
 	private Mapper mapper;
 	private IWorkbook configurationWorkbook;
-	private IWorkbook productsWorkbook;
-	private File outputFile;
-
 	private String distributor;
 	
+	private IWorkbook productsWorkbook;
+	private String productsSheet;
+	private File outputFile;
+
 	private Boolean executed = false;
-	
+
 	public Boolean isExecuted(){
 		return executed;
 	}
+
+	
+	
+	public String getProductsSheet() {
+		return productsSheet;
+	}
+
+
+
+	public void setProductsSheet(String productsSheet) {
+		this.productsSheet = productsSheet;
+	}
+
+
 
 	public Mapper getMapper() {
 		return mapper;
@@ -75,11 +91,10 @@ public class PendingMap {
 	public void execute() throws FileNotFoundException, IOException,
 			MapperException, MappedAlreadyExecutedException {
 		if(!executed){
-			
-			
 			IWorkbook newWorkbook = null;
 			try{
-				newWorkbook = mapper.doMap(distributor, productsWorkbook);
+				ISheet sheet = productsWorkbook.getSheet(productsSheet);
+				newWorkbook = mapper.doMap(distributor, sheet);
 			} catch (UnmappedCodesException e){
 				//Save the mapped codes
 				FileOutputStream out = new FileOutputStream(new File(

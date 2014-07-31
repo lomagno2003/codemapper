@@ -39,10 +39,10 @@ public class FinishWizardPage extends WizardPage {
 			try {
 				this.sharedData.execute();
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
+				this.setErrorMessage("Se produjo un error al leer/escribir alguno de los archivos");
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
+				this.setErrorMessage("Se produjo un error al leer/escribir alguno de los archivos");
 				e.printStackTrace();
 			} catch (UnmappedCodesException e) {
 				String unmappedFileName = this.sharedData.getOutputFile()
@@ -57,11 +57,11 @@ public class FinishWizardPage extends WizardPage {
 				dialog.setMessage("Algunos de los codigos no pudieron ser mapeados, los mismos se listan en "
 						+ unmappedFileName);
 				dialog.open();
+				this.setErrorMessage("Hubieron algunos codigos que no pudieron ser mapeados");
 			} catch (MapperException e) {
-				// TODO Auto-generated catch block
+				this.setErrorMessage("Se produjo un error al realizar el mappeo");
 				e.printStackTrace();
 			} catch (MappedAlreadyExecutedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

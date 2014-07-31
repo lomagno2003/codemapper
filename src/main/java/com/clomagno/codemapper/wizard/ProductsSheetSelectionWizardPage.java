@@ -12,17 +12,15 @@ import org.eclipse.swt.events.MouseEvent;
 
 import com.clomagno.codemapper.mapper.ISheet;
 import com.clomagno.codemapper.mapper.IWorkbook;
-import com.clomagno.codemapper.mapper.Mapper;
-import com.clomagno.codemapper.mapper.impls.MapperFactory;
 
-public class DistributorSelectionWizardPage extends WizardPage {
-	private static final String DESCRIPTION = "Selecciona el distribuidor";
+public class ProductsSheetSelectionWizardPage extends WizardPage {
+	private static final String DESCRIPTION = "Selecciona la planilla que contiene el listado de articulos";
 
 	private PendingMap sharedData;
 
 	private List list;
 
-	public DistributorSelectionWizardPage(PendingMap sharedData) {
+	public ProductsSheetSelectionWizardPage(PendingMap sharedData) {
 		super("Configuration file selection");
 		this.setDescription(DESCRIPTION);
 		this.sharedData = sharedData;
@@ -37,8 +35,8 @@ public class DistributorSelectionWizardPage extends WizardPage {
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseUp(MouseEvent arg0) {
-				DistributorSelectionWizardPage.this.getWizard().getContainer()
-						.updateButtons();
+				ProductsSheetSelectionWizardPage.this.getWizard()
+						.getContainer().updateButtons();
 			}
 		});
 		FormData fd_list = new FormData();
@@ -56,14 +54,10 @@ public class DistributorSelectionWizardPage extends WizardPage {
 		if (value) {
 			list.removeAll();
 
-			IWorkbook configurationWorkbook = this.sharedData
-					.getConfigurationWorkbook();
+			IWorkbook productsWorkbook = this.sharedData.getProductsWorkbook();
 
-			for (ISheet sheet : configurationWorkbook) {
-				if (!sheet.getName().equals(MapperFactory.GENERAL_CONFIGURATION_SHEET_NAME)) {
-					list.add(sheet.getName());
-				}
-
+			for (ISheet sheet2 : productsWorkbook) {
+				list.add(sheet2.getName());
 			}
 		}
 	}
@@ -71,7 +65,7 @@ public class DistributorSelectionWizardPage extends WizardPage {
 	@Override
 	public boolean isPageComplete() {
 		if (list.getSelection().length > 0) {
-			this.sharedData.setDistributor(list.getSelection()[0]);
+			this.sharedData.setProductsSheet(list.getSelection()[0]);
 
 			return true;
 		}

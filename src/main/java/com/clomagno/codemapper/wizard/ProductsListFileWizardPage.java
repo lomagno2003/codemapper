@@ -28,7 +28,7 @@ import com.clomagno.codemapper.mapper.facades.dbf.DBFWorkbookFacade;
 import com.clomagno.codemapper.mapper.facades.hssf.HSSFWorkbookFacade;
 
 public class ProductsListFileWizardPage extends WizardPage {
-	private static final String DESCRIPTION="Selecciona el archivo de articulos";
+	private static final String DESCRIPTION="Selecciona el archivo que contiene el listado de articulos";
 
 	private PendingMap sharedData;
 	

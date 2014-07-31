@@ -9,11 +9,12 @@ import org.eclipse.swt.widgets.Shell;
 public class CodeMapperWizard extends Wizard {
 	private PendingMap pendingMap;
 	protected ConfigurationFileWizardPage page1;
-	protected ProductsListFileWizardPage page2;
-	protected DistributorSelectionWizardPage page3;
-	protected OutputFileWizardPage page4;
-	protected PreFinishWizardPage page5;
-	protected FinishWizardPage page6;
+	protected DistributorSelectionWizardPage page2;
+	protected ProductsListFileWizardPage page3;
+	protected ProductsSheetSelectionWizardPage page4;
+	protected OutputFileWizardPage page5;
+	protected PreFinishWizardPage page6;
+	protected FinishWizardPage page7;
 
 	public CodeMapperWizard() {
 		super();
@@ -23,11 +24,12 @@ public class CodeMapperWizard extends Wizard {
 		pendingMap = new PendingMap();
 
 		page1 = new ConfigurationFileWizardPage(pendingMap);
-		page2 = new ProductsListFileWizardPage(pendingMap);
-		page3 = new DistributorSelectionWizardPage(pendingMap);
-		page4 = new OutputFileWizardPage(pendingMap);
-		page5 = new PreFinishWizardPage(pendingMap);
-		page6 = new FinishWizardPage(pendingMap);
+		page2 = new DistributorSelectionWizardPage(pendingMap);
+		page3 = new ProductsListFileWizardPage(pendingMap);
+		page4 = new ProductsSheetSelectionWizardPage(pendingMap);
+		page5 = new OutputFileWizardPage(pendingMap);
+		page6 = new PreFinishWizardPage(pendingMap);
+		page7 = new FinishWizardPage(pendingMap);
 	}
 
 	public PendingMap getPendingMap() {
@@ -42,7 +44,7 @@ public class CodeMapperWizard extends Wizard {
 		this.addPage(page4);
 		this.addPage(page5);
 		this.addPage(page6);
-		
+		this.addPage(page7);
 	}
 
 	@Override
