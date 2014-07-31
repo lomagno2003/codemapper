@@ -50,7 +50,7 @@ public class TestCase_MapperFactory_OriginalFiles {
 		assertEquals(" 5065", getCell("articulos", 89, 5, workbook));
 
 		assertEquals("PROTECTOR SUP.CORREA DIST.(ORIG) GOL/POLO/CADDY **",
-				getCell("articulos", 150, 1, workbook));
+				getCell("articulos", 151, 1, workbook));
 
 		assertEquals("123.48".toUpperCase(),
 				getCell("articulos", 11511, 3, workbook).toUpperCase());

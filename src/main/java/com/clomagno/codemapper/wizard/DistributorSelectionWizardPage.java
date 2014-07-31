@@ -12,7 +12,6 @@ import org.eclipse.swt.events.MouseEvent;
 
 import com.clomagno.codemapper.mapper.ISheet;
 import com.clomagno.codemapper.mapper.IWorkbook;
-import com.clomagno.codemapper.mapper.Mapper;
 import com.clomagno.codemapper.mapper.impls.MapperFactory;
 
 public class DistributorSelectionWizardPage extends WizardPage {
