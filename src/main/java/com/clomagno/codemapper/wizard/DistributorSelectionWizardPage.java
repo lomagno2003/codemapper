@@ -10,6 +10,7 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
+import com.clomagno.codemapper.mapper.Configuration;
 import com.clomagno.codemapper.mapper.ISheet;
 import com.clomagno.codemapper.mapper.IWorkbook;
 import com.clomagno.codemapper.mapper.impls.MapperFactory;
@@ -55,14 +56,8 @@ public class DistributorSelectionWizardPage extends WizardPage {
 		if (value) {
 			list.removeAll();
 
-			IWorkbook configurationWorkbook = this.sharedData
-					.getConfigurationWorkbook();
-
-			for (ISheet sheet : configurationWorkbook) {
-				if (!sheet.getName().equals(MapperFactory.GENERAL_CONFIGURATION_SHEET_NAME)) {
-					list.add(sheet.getName());
-				}
-
+			for (String key : this.sharedData.getMapper().getConfigurations().keySet()) {
+				list.add(key);
 			}
 		}
 	}

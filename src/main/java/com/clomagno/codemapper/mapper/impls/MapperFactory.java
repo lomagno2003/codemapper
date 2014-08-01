@@ -107,6 +107,10 @@ public class MapperFactory {
 					.get(distributorCell.getStringCellValue())
 					.setExternalColumnName(
 							externalColumnNameCell.getStringCellValue());
+			
+			if(configuration.getSheet(MAPPINGS_SHEET_NAME)==null){
+				throw new BadHeadersException();
+			}
 
 			configureDistributorMappings(
 					result.getConfigurations().get(
@@ -133,8 +137,11 @@ public class MapperFactory {
 			Cell internalCodeCell = row.getCell(internalCodeIndex);
 			Cell externalCodeCell = row.getCell(externalCodeIndex);
 			
-			configuration.getMappings().put(externalCodeCell.toString(),
+			//Check if exists a mapping for that internal code
+			if(externalCodeCell!=null){
+				configuration.getMappings().put(externalCodeCell.toString(),
 					internalCodeCell.toString());
+			}
 		}
 	}
 }

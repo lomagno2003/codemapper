@@ -65,11 +65,13 @@ public class HSSFMapper extends Mapper{
 	                
 	                columnIndex++;
 	            }
+	            
+	            rowNumber++;
+
             } else {
             	unmappedCodes.add(row);
             }
             
-            rowNumber++;
         }
         
         IWorkbook workbookResult = new HSSFWorkbookFacade(result);
