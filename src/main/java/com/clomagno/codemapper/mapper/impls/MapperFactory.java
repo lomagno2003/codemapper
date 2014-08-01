@@ -16,6 +16,7 @@ public class MapperFactory {
 	public static String DISTRIBUTOR_COLUMN_NAME = "D";
 	public static String SUFFIX_COLUMN_NAME = "S";
 	public static String EXTERNAL_CODE_COLUMN_NAME = "E";
+	public static String MAPPINGS_SHEET_NAME = "Mapeos";
 
 	public static Integer findHeaderIndex(HSSFSheet sheet, String header) {
 		Integer result = 0;
@@ -45,6 +46,7 @@ public class MapperFactory {
 			throws BadHeadersException {
 		HSSFMapper result = new HSSFMapper();
 
+		//Get the general configurations, including distributors list, suffixes and external column name
 		HSSFSheet generalConfiguration = configuration
 				.getSheet(GENERAL_CONFIGURATION_SHEET_NAME);
 
@@ -76,21 +78,31 @@ public class MapperFactory {
 				// for new distributors is finished
 				break;
 			}
+			
+			//Add a new empty configuration to the map
 			result.getConfigurations().put(
 					distributorCell.getStringCellValue(), new Configuration());
+			
+			//Configure the name of the configuration
+			result.getConfigurations().get(distributorCell.getStringCellValue())
+				.setDistributorName(distributorCell.getStringCellValue());
 
+			//Find the suffix of the distributor
 			Cell suffixCell = row.getCell(suffixIndex);
 			if (suffixCell == null) {
 				throw new BadHeadersException();
 			}
+			//Configure the suffix of the distributor
 			result.getConfigurations()
 					.get(distributorCell.getStringCellValue())
 					.setSuffix(suffixCell.getStringCellValue());
 
+			//Find the external column name of the distributor
 			Cell externalColumnNameCell = row.getCell(externalColumnNameIndex);
 			if (externalColumnNameCell == null) {
 				throw new BadHeadersException();
 			}
+			//Configure the external column name of the distributor
 			result.getConfigurations()
 					.get(distributorCell.getStringCellValue())
 					.setExternalColumnName(
@@ -99,20 +111,20 @@ public class MapperFactory {
 			configureDistributorMappings(
 					result.getConfigurations().get(
 							distributorCell.getStringCellValue()),
-					configuration.getSheet(distributorCell.getStringCellValue()));
+					configuration.getSheet(MAPPINGS_SHEET_NAME));
 		}
 
 		return result;
 	}
 
 	public static void configureDistributorMappings(
-			Configuration configuration, HSSFSheet distributorMappingSheet) {
-		Integer internalCodeIndex = findHeaderIndex(distributorMappingSheet,
+			Configuration configuration, HSSFSheet mappingSheet) {
+		Integer internalCodeIndex = findHeaderIndex(mappingSheet,
 				HSSFMapper.INTERNAL_CODE_COLUMN_NAME);
-		Integer externalCodeIndex = findHeaderIndex(distributorMappingSheet,
-				configuration.getExternalColumnName());
+		Integer externalCodeIndex = findHeaderIndex(mappingSheet,
+				configuration.getDistributorName());
 
-		Iterator<Row> rowIterator = distributorMappingSheet.iterator();
+		Iterator<Row> rowIterator = mappingSheet.iterator();
 		rowIterator.next();
 
 		while (rowIterator.hasNext()) {

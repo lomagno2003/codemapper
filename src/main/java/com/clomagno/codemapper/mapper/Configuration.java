@@ -4,14 +4,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Configuration {
+	private String distributorName;
+
 	private String suffix;
-	
+
 	private String externalColumnName;
-	
-	private Map<String,String> mappings;
-	
-	public Configuration(){
+
+	private Map<String, String> mappings;
+
+	public Configuration() {
 		mappings = new HashMap<String, String>();
+	}
+
+	public String getDistributorName() {
+		return distributorName;
+	}
+
+	public void setDistributorName(String distributorName) {
+		this.distributorName = distributorName;
 	}
 
 	public String getSuffix() {

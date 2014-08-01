@@ -70,9 +70,10 @@ public class TestCase_MapperFactory {
 		
 		configuration.setExternalColumnName("ExternalCode");
 		configuration.setSuffix("-sufix");
+		configuration.setDistributorName("distributorX");
 		
 		String distributor1[][]={
-        		{"ExternalCode",HSSFMapper.INTERNAL_CODE_COLUMN_NAME},
+        		{"distributorX",HSSFMapper.INTERNAL_CODE_COLUMN_NAME},
         		{"10","1"},
         		{"11","2"},
         		{"12","3"}
@@ -100,7 +101,7 @@ public class TestCase_MapperFactory {
         		};
 		
 		String distributor1Maps[][]={
-        		{"code-d1",HSSFMapper.INTERNAL_CODE_COLUMN_NAME},
+        		{"distributor1",HSSFMapper.INTERNAL_CODE_COLUMN_NAME},
         		{"10","1"},
         		{"11","2"},
         		{"12","3"}
@@ -122,7 +123,7 @@ public class TestCase_MapperFactory {
 		
 		HSSFWorkbook workbookConfiguration = new HSSFWorkbook();
 		HSSFSheetFactory.createSheetFromArray(workbookConfiguration, MapperFactory.GENERAL_CONFIGURATION_SHEET_NAME, generalConfiguration);
-		HSSFSheetFactory.createSheetFromArray(workbookConfiguration, "distributor1", distributor1Maps);
+		HSSFSheetFactory.createSheetFromArray(workbookConfiguration, MapperFactory.MAPPINGS_SHEET_NAME, distributor1Maps);
 
         HSSFMapper mapper = MapperFactory.getMapperFromWorkbook(workbookConfiguration);
         
