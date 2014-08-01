@@ -12,10 +12,10 @@ import com.clomagno.codemapper.mapper.Configuration;
 import com.clomagno.codemapper.mapper.exceptions.BadHeadersException;
 
 public class MapperFactory {
-	public static String GENERAL_CONFIGURATION_SHEET_NAME = "GCSN";
-	public static String DISTRIBUTOR_COLUMN_NAME = "D";
-	public static String SUFFIX_COLUMN_NAME = "S";
-	public static String EXTERNAL_CODE_COLUMN_NAME = "E";
+	public static String GENERAL_CONFIGURATION_SHEET_NAME = "Configuracion General";
+	public static String DISTRIBUTOR_COLUMN_NAME = "Distribuidor";
+	public static String SUFFIX_COLUMN_NAME = "Sufijo";
+	public static String EXTERNAL_CODE_COLUMN_NAME = "Codigo Externo";
 	public static String MAPPINGS_SHEET_NAME = "Mapeos";
 
 	public static Integer findHeaderIndex(HSSFSheet sheet, String header) {

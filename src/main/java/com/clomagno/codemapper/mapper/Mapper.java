@@ -6,8 +6,8 @@ import java.util.Map;
 import com.clomagno.codemapper.mapper.exceptions.MapperException;
 
 public abstract class Mapper {
-	public static String INTERNAL_CODE_COLUMN_NAME = "ICCN";
-	public static String MAPPED_SHEET_NAME = "MSN";
+	public static String INTERNAL_CODE_COLUMN_NAME = "Codigo Interno";
+	public static String MAPPED_SHEET_NAME = "Mapeo";
 
 	private Map<String,Configuration> configurations;
 	
