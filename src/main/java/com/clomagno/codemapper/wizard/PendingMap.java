@@ -28,20 +28,14 @@ public class PendingMap {
 	public Boolean isExecuted(){
 		return executed;
 	}
-
-	
 	
 	public String getProductsSheet() {
 		return productsSheet;
 	}
 
-
-
 	public void setProductsSheet(String productsSheet) {
 		this.productsSheet = productsSheet;
 	}
-
-
 
 	public Mapper getMapper() {
 		return mapper;

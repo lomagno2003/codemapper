@@ -27,8 +27,7 @@ public class TestCase_MapperFactory {
 	public void testGetMapperFromFile() throws IOException, MapperException{
 		HSSFWorkbook workbookConfiguration = new HSSFWorkbook(TestCase_MapperFactory.class.getResourceAsStream("mapping1.xls"));
 		HSSFMapper mapper = MapperFactory.getMapperFromWorkbook(workbookConfiguration);
-        
-                
+
         HSSFWorkbook externalWorkbook = new HSSFWorkbook(TestCase_MapperFactory.class.getResourceAsStream("distributor1.xls"));
         
         ISheet mappedSheet = mapper.doMap("distributor1", new HSSFWorkbookFacade(externalWorkbook)).getSheet(HSSFMapper.MAPPED_SHEET_NAME);

@@ -19,8 +19,6 @@ public class MapperFactory {
 	public static String MAPPINGS_SHEET_NAME = "Mapeos";
 
 	public static Integer findHeaderIndex(HSSFSheet sheet, String header) {
-		Integer result = 0;
-
 		Iterator<Row> rowIterator = sheet.iterator();
 		Row row = rowIterator.next();
 		// For each row, iterate through all the columns
@@ -29,10 +27,8 @@ public class MapperFactory {
 			Cell cell = cellIterator.next();
 
 			if (cell.toString().equals(header)) {
-				return result;
+				return cell.getColumnIndex();
 			}
-
-			result++;
 		}
 
 		return null;

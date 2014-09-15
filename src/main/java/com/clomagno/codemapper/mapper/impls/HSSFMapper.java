@@ -29,12 +29,12 @@ public class HSSFMapper extends Mapper{
         ISheet resultSheet = new HSSFSheetFacade(result.createSheet(MAPPED_SHEET_NAME));
 		
 		Configuration distributorConfiguration = getConfigurations().get(distributorName);
-		
+
 		Integer codeColumnIndex = getCodeColumnIndex(distributorConfiguration, externalSheet);
 		if(codeColumnIndex==null){
 			throw new BadHeadersException();
 		}
-		
+				
 		copyFirstRow(externalSheet,resultSheet);
 		
 		Iterator<IRow> rowIterator = externalSheet.iterator();
