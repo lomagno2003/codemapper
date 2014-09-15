@@ -3,22 +3,16 @@ package com.clomagno.codemapper.test.mapper;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
+
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
-import org.junit.Before;
+
 import org.junit.Test;
 
-import com.clomagno.codemapper.mapper.Configuration;
 import com.clomagno.codemapper.mapper.ICell;
 import com.clomagno.codemapper.mapper.IRow;
-import com.clomagno.codemapper.mapper.ISheet;
 import com.clomagno.codemapper.mapper.IWorkbook;
 import com.clomagno.codemapper.mapper.exceptions.MapperException;
-import com.clomagno.codemapper.mapper.facades.hssf.HSSFSheetFacade;
 import com.clomagno.codemapper.mapper.facades.hssf.HSSFWorkbookFacade;
 import com.clomagno.codemapper.mapper.impls.HSSFMapper;
 import com.clomagno.codemapper.mapper.impls.MapperFactory;

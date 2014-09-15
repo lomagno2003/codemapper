@@ -10,11 +10,6 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 
-import com.clomagno.codemapper.mapper.Configuration;
-import com.clomagno.codemapper.mapper.ISheet;
-import com.clomagno.codemapper.mapper.IWorkbook;
-import com.clomagno.codemapper.mapper.impls.MapperFactory;
-
 public class DistributorSelectionWizardPage extends WizardPage {
 	private static final String DESCRIPTION = "Selecciona el distribuidor";
 
